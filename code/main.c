@@ -33,7 +33,7 @@ int main(void)
     double Q_new[nx];   /* array de Q no tempo n+1 */
     double Q_old[nx];   /* array de Q no tempo n */
 
-    if (DEBUG) puts("[INFO] Depuração ativada\n");
+    if (DEBUG) puts("[INFO] Depuracao ativada\n");
 
     listParameters();
 
@@ -50,10 +50,10 @@ int main(void)
 void listParameters()
 {
     puts("Parametros\n==========");
-    puts("Constantes da equação:");
+    puts("Constantes da equacao:");
     printf("Delta_t = %3.2e, Delta_x = %3.2e, u_bar = %3.2e, alpha = %3.2e, "
            "c_inj = %3.2e\n\n", Delta_t, Delta_t, u_bar, alpha, c_inj);
-    puts("Constantes da simulação:");
+    puts("Constantes da simulacao:");
     printf("nx = %d, t_final = %f, c_ini = %3.2e\n\n",
            nx, t_final, c_ini);
 }

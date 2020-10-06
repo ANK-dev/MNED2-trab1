@@ -1,2 +1,55 @@
 \chapter{Introdução}
-A Introdução entra aqui.
+Neste trabalho foi implementado um método computacional de maneira a resolver
+a equação de Advecção-Difusão de forma numérica.
+
+Para melhor entender o desenvolvimento, é necessária introdução de alguns
+conceitos-chave utilizados.
+
+\section{A Equação de Advecção-Difusão}
+A equação de advecção-difusão possibilita a solução de problemas envolvendo
+variações espaciais e temporais da concentração de uma substância escoando em um
+fluído. Um exemplo bastante didático consiste no despejo de esgoto em um
+afluente: o contaminante sofrerá efeitos difusivos --- concentrando-se ao redor
+da saída --- e efeitos advectivos --- sendo carregado no sentido da correnteza.
+
+Para um problema unidimensional tem-se a seguinte forma,
+
+\begin{equation} \label{adv-dif}
+    \frac{\partial c}{\partial t} + \frac{\partial}{\partial x}(uc)
+    - \frac{\partial}{\partial x}\left( D \frac{\partial c}{\partial x} \right)
+    = 0
+\end{equation}
+
+\noindent onde $c$ indica a concentração, $u$ a velocidade e $D$ o coeficiente
+de difusão.
+
+Considerando que para $u$ e $D$ constantes, tem-se $\bar{u}$ e $\alpha$,
+respectivamente, é possível reescrever \ref{adv-dif} como,
+
+\begin{equation}
+    \frac{\partial c}{\partial t} + \bar{u}\frac{\partial c}{\partial x} -
+    \alpha\frac{\partial^2 c}{\partial x^2} = 0
+\end{equation}
+
+\section{Método dos Volumes Finitos}
+A partir da Eq. \ref{adv-dif}, é possível reescrevê-la como
+
+\begin{equation}
+    \frac{\partial\phi}{\partial t} + \frac{\partial f}{\partial x} = 0
+\end{equation}
+
+\noindent onde,
+
+\noindent
+\begin{minipage}{.4\linewidth}
+    \begin{equation}
+        \phi = c
+    \end{equation}
+\end{minipage}%
+\begin{minipage}{.6\linewidth}
+    \begin{equation}
+        f = f(c) = uc - D\frac{\partial c}{\partial x}
+    \end{equation}
+\end{minipage}
+
+
