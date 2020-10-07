@@ -16,8 +16,8 @@ da saída --- e efeitos advectivos --- sendo carregado no sentido da correnteza.
     \centering
     \captionsetup{justification=centering}
     \includegraphics[width=0.7\textwidth]{esgoto}
-    \caption{Efeitos difusivos e advectivos podem ser observados no despejo
-    de esgoto no Rio Bengala}
+    \caption{Efeitos difusivos e advectivos observados no despejo de esgoto no
+    Rio Bengala}
 \end{figure}
 
 
@@ -69,22 +69,32 @@ A partir da Eq.\ \ref{adv-dif}, para adaptá-la ao métodos dos volumes finitos,
 \end{minipage}
 
 \bigskip
-\begin{center}
-    --- \textit{Inserir gráficos do domínio discretizado e explicação} ---
-\end{center}
-\bigskip
+Para a solução, considera-se um domínio discretizado e subdividido conforme
+figuras abaixo:
 
-Para obter-se a discretização do domínio, integra-se a Eq.\ \ref{adv-dif-volfin}
-no intervalo de tempo de $t^n$ a $t^{n+1}$ e no espaço de $x_{i-\frac{1}{2}}$
-a $x_{i+\frac{1}{2}}$. Além disso, define-se os incrementos no tempo e no
-espaço como
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{dominio_sol}
+    \caption{Partição do domínio da solução}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{iesimo_vol}
+    \caption{Posições ao redor do $i$-ésimo volume da malha}
+\end{figure}
+
+\noindent Para obter-se a discretização do domínio, integra-se a Eq.\
+\ref{adv-dif-volfin} no intervalo de tempo de $t^n$ a $t^{n+1}$ e no espaço de
+$x_{i-\frac{1}{2}}$ a $x_{i+\frac{1}{2}}$. Além disso, define-se os incrementos
+no tempo e no espaço como
 
 \begin{equation*}
     \Delta t = t^{n+1} - t^n \qquad\text{e}\qquad \Delta x = x_{i+\frac{1}{2}}
     - x_{i-\frac{1}{2}}
 \end{equation*}
 
-Tem-se, assim, uma integração dupla
+\noindent Tem-se, assim, uma integração dupla
 
 \begin{equation*}
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \left( \int_{t^n}^{t^{n+1}}
@@ -103,8 +113,8 @@ Tem-se, assim, uma integração dupla
     = 0
 \end{equation}
 
-Define-se uma variável $Q_i^k$ que consiste no valor médio aproximado de $\Phi$
-no espaço, dado um tempo $k$ onde $k = t^n$ ou $k = t^{n+1}$
+\noindent Define-se uma variável $Q_i^k$ que consiste no valor médio aproximado
+de $\Phi$ no espaço, dado um tempo $k$ onde $k = t^n$ ou $k = t^{n+1}$
 
 \begin{equation}\label{Qn+1}
     Q_i^n \approx \frac{1}{\Delta x}
@@ -116,10 +126,9 @@ no espaço, dado um tempo $k$ onde $k = t^n$ ou $k = t^{n+1}$
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \Phi(x,t^{n+1})dx
 \end{equation}
 
-Analogamente, define-se os fluxos como um $F_k^n$ que consiste no valor médio
-aproximado de $F$ no tempo, dada uma posição $k$ onde $k = x_{i-\frac{1}{2}}$
-ou
-$k = x_{i+\frac{1}{2}}$
+\noindent Analogamente, define-se os fluxos como um $F_k^n$ que consiste no
+valor médio aproximado de $F$ no tempo, dada uma posição $k$ onde $k =
+x_{i-\frac{1}{2}}$ ou $k = x_{i+\frac{1}{2}}$
 
 \begin{equation}\label{F-1/2}
     F_{i-\frac{1}{2}}^n \approx \frac{1}{\Delta t}
@@ -131,8 +140,8 @@ $k = x_{i+\frac{1}{2}}$
     \int_{t^n}^{t^{n+1}} f(x_{i+\frac{1}{2}},t)dt
 \end{equation}
 
-Substituindo as Eq.\ \ref{Qn+1}, \ref{Qn}, \ref{F-1/2} e \ref{F+1/2} na
-Eq.\ \ref{int dx} e dividindo todos os termos por $\Delta x$ tem-se que
+\noindent Substituindo as Eq.\ \ref{Qn+1}, \ref{Qn}, \ref{F-1/2} e \ref{F+1/2}
+na Eq.\ \ref{int dx} e dividindo todos os termos por $\Delta x$ tem-se que
 
 \begin{equation*}
     \frac{1}{\Delta x} \Bigg\{
@@ -159,7 +168,7 @@ Eq.\ \ref{int dx} e dividindo todos os termos por $\Delta x$ tem-se que
     \Bigg\}
 \end{equation*}
 
-Por fim, obtém-se
+\noindent Por fim, obtém-se
 
 \begin{equation}\label{Q e F}
     Q_i^{n+1} = Q_i^n - \frac{\Delta t}{\Delta x}(F_{i+\frac{1}{2}}^n -
