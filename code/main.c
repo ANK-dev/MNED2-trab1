@@ -1,11 +1,11 @@
 /******************************************************************************
  *        Métodos Numéricos para Equações Diferenciais II -- Trabalho 1       *
- *                          Ariel Nogueira Kovaljski                          * 
+ *                          Ariel Nogueira Kovaljski                          *
  ******************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
-#define DEBUG 1             /* flag de depuração */
+#define DEBUG 0            /* flag de depuração: provê status mais detalhados */
 
 /*====================== Parâmetros a serem ajustados ========================*/
 
@@ -15,7 +15,7 @@
 #define Delta_x 0.2         /* Δx: largura de cada célula (em m) */
 #define t_final 15000.0     /* tempo final da simulação (em segundos) */
 #define u_bar   0.2e-2      /* ū: velocidade de escoamento (em m/s) */
-#define alpha   0.2e-5      /* α: coeficiente de ??? */
+#define alpha   0.2e-5      /* α: coeficiente de difusão */
 #define c_ini   115.5       /* concentração inicial nos volumes da malha */
 #define c_inj   7.0e-5      /* concentração de injeção nos vol. da malha */
 
@@ -24,7 +24,6 @@
 void listParameters();
 void initializeArray(double arr[], int len, double value);
 void calculateQ(double old[], double new[]);
-void calculateQDebug(double old[], double new[]);
 void printAndSaveResults(double arr[], int len);
 
 int main(void)
@@ -33,7 +32,10 @@ int main(void)
     double Q_new[nx];   /* array de Q no tempo n+1 */
     double Q_old[nx];   /* array de Q no tempo n */
 
-    if (DEBUG) puts("[INFO] Depuracao ativada\n");
+    puts("MNED II - Trabalho 1\n====================");
+    puts("por Ariel Nogueira Kovaljski\n");
+
+    if (DEBUG) puts("[INFO] Depuracao ativada! O calculo sera mais lento.\n");
 
     listParameters();
 
@@ -41,7 +43,7 @@ int main(void)
     initializeArray(Q_old, nx, c_ini);
     initializeArray(Q_new, nx, c_ini);
 
-    if (DEBUG) calculateQDebug(Q_old, Q_new); else calculateQ(Q_old, Q_new);
+    calculateQ(Q_old, Q_new);
     printAndSaveResults(Q_new, nx);
 
     return 0;
@@ -49,7 +51,7 @@ int main(void)
 
 void listParameters()
 {
-    puts("Parametros\n==========");
+    puts("Parametros\n----------");
     puts("Constantes da equacao:");
     printf("Delta_t = %3.2e, Delta_x = %3.2e, u_bar = %3.2e, alpha = %3.2e, "
            "c_inj = %3.2e\n\n", Delta_t, Delta_t, u_bar, alpha, c_inj);
@@ -70,90 +72,35 @@ void initializeArray(double arr[], int len, double value)
 /* Calcula as concentrações na malha ao longo do tempo */
 void calculateQ(double old[], double new[])
 {
-    int x;
-    double t = 0;
-
-    do {
-
-        /*************************************************************
-         * 
-         *            |==@==|==@==|==@==|==@==|==@==|==@==|
-         *               ^
-         *            Para o volume da fronteira esquerda
-         *        o índice 0 refere-se ao volume nº 1 da malha 
-         */
-        new[0] = old[0] - Delta_t/Delta_x 
-                 * (
-                      u_bar * (2*old[0] - 2*c_inj)
-                    - 
-                      alpha * (old[1] - 3*old[0] + 2*c_inj) / Delta_x
-                   );
-
-        /*************************************************************
-         * 
-         *            |==@==|==@==|==@==|==@==|==@==|==@==|
-         *                     ^     ^     ^     ^     
-         *             Para os volumes do centro da malha
-         */
-        for (x = 1; x < nx - 1; ++x) {
-            new[x] = old[x] - Delta_t/Delta_x
-                     * (
-                          u_bar * (old[x] - old[x-1]) 
-                        - 
-                          alpha * (old[x-1] - old[x]) / Delta_x
-                       );
-        }
-
-        /*************************************************************
-         * 
-         *            |==@==|==@==|==@==|==@==|==@==|==@==|
-         *                                             ^
-         *             Para o volume da fronteira direita
-         *            x possui valor de nx - 1 nesse ponto
-         */
-        new[x] = old[x] - Delta_t/Delta_x
-                 * (
-                      u_bar * (old[x] - old[x-1]) 
-                    - 
-                      alpha * (old[x-1] - old[x]) / Delta_x
-                   );
-
-        /* Atualiza array de valores antigos com os novos para a próxima 
-           iteração */
-        for (x = 0; x < nx; ++x) {
-            old[x] = new[x];
-        }
-
-        printf("\rCalculando... %3.2f%% concluido (tempo atual: %.2fs)",
-               t/t_final * 100, t);
-        fflush(stdout);
-
-    } while ( (t += Delta_t) < t_final);
-
-}
-
-/* Função para depuração */
-void calculateQDebug(double old[], double new[])
-{
-    int x, temp;
+    int x, vol;
     double t = 0;
 
     /* --------------- Depuração --------------- */
     if (DEBUG) {
-        puts("Volumes da Malha\n================");
-        for (temp = 0; temp < 5; ++temp) {
+        puts("Volumes da Malha\n----------------");
+        for (vol = 0; vol < 5; ++vol) {
             /* gera um linspace com 5 elementos */
-            printf("%d\t\t", 1 + temp*(nx-1)/(4));
+            printf("%d\t\t", 1 + vol*(nx-1)/(4));
         }
         putchar('\n');
     }
     /* ----------------------------------------- */
 
+    if(!DEBUG) puts("Calculando...");
+
     do {
-        new[0] = old[0] - Delta_t/Delta_x 
+
+        /*************************************************************
+         *
+         *            |==@==|==@==|==@==|==@==|==@==|==@==|
+         *               ^
+         *            Para o volume da fronteira esquerda
+         *        o índice 0 refere-se ao volume nº 1 da malha
+         */
+        new[0] = old[0] - Delta_t/Delta_x
                  * (
                       u_bar * (2*old[0] - 2*c_inj)
-                    - 
+                    -
                       alpha * (old[1] - 3*old[0] + 2*c_inj) / Delta_x
                    );
 
@@ -163,26 +110,37 @@ void calculateQDebug(double old[], double new[])
         }
         /* ----------------------- */
 
-        /* Para os volumes do centro da malha */
+        /*************************************************************
+         *
+         *            |==@==|==@==|==@==|==@==|==@==|==@==|
+         *                     ^     ^     ^     ^
+         *             Para os volumes do centro da malha
+         */
         for (x = 1; x < nx - 1; ++x) {
-
             new[x] = old[x] - Delta_t/Delta_x
                      * (
-                          u_bar * (old[x] - old[x-1]) 
-                        - 
+                          u_bar * (old[x] - old[x-1])
+                        -
                           alpha * (old[x-1] - old[x]) / Delta_x
                        );
 
             /* -------- Depuração --------- */
-            if ( DEBUG && ( x % (nx/4) == 0) ) 
+            if ( DEBUG && ( x % (nx/4) == 0) )
                 printf("%f\t", new[x]);
             /* ---------------------------- */
         }
 
+        /*************************************************************
+         *
+         *            |==@==|==@==|==@==|==@==|==@==|==@==|
+         *                                             ^
+         *             Para o volume da fronteira direita
+         *            x possui valor de nx - 1 nesse ponto
+         */
         new[x] = old[x] - Delta_t/Delta_x
                  * (
-                      u_bar * (old[x] - old[x-1]) 
-                    - 
+                      u_bar * (old[x] - old[x-1])
+                    -
                       alpha * (old[x-1] - old[x]) / Delta_x
                    );
 
@@ -191,12 +149,19 @@ void calculateQDebug(double old[], double new[])
             printf("%f\ttempo atual: %.2fs (%3.2f%% concluido)",
                    new[x], t, t/t_final * 100);
             fflush(stdout);
+        } else {
+            printf("\r%3.2f%% concluido (tempo atual: %.2fs)",
+                t/t_final * 100, t);
+            fflush(stdout);
         }
         /* ------------------- */
 
+        /* Atualiza array de valores antigos com os novos para a próxima
+           iteração */
         for (x = 0; x < nx; ++x) {
             old[x] = new[x];
         }
+
 
     } while ( (t += Delta_t) < t_final);
 
@@ -219,12 +184,23 @@ void printAndSaveResults(double arr[], int len)
                          resultados */
     if ( (results_file = fopen("results.txt", "w")) == NULL) {
         fputs("[ERR] Houve um erro ao escrever o arquivo \"results.txt\"! "
-              "Os resultados nao foram salvos.\n", 
+              "Os resultados nao foram salvos.\n",
               stderr);
         exit(1);
     }
 
-    /* Imprime os resultados no arquivo "results.txt" */
+    /* Adiciona os resultados no arquivo "results.txt" */
+    fprintf(results_file,
+            "nx=%d\n"
+            "Delta_t=%f\n"
+            "Delta_x=%f\n"
+            "t_final=%f\n"
+            "u_bar=%f\n"
+            "alpha=%f\n"
+            "c_ini=%f\n"
+            "c_inj=%f\n",
+            nx, Delta_t, Delta_x, t_final, u_bar, alpha, c_ini, c_inj);
+    fputs("********************\n", results_file);
     for (i = 0; i < len; ++i) {
         fprintf(results_file, "%d,%f\n", i + 1, arr[i]);
     }
