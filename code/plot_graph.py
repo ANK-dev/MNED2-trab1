@@ -10,7 +10,7 @@ y = []
 parameters = {}
 
 # Abre arquivo para leitura
-f = open('results.txt', 'r')
+f = open('./results/results.txt', 'r')
 
 for line_number, line in enumerate(f):
     if line_number < 8:
@@ -24,11 +24,9 @@ for line_number, line in enumerate(f):
         x.append( int(line.split(',')[0]) )
         y.append( float( (line.split(',')[1]).split('\n')[0] ) )
 
-print(parameters)
-
 # Configura e exibe o gráfico
 plt.grid(True)
-plt.suptitle("Quantidade X Célula")
+plt.suptitle("Concentração X Célula")
 plt.title(rf"$nx = {parameters['nx']}$, " 
           rf"$\Delta t = {parameters['Delta_t']}$, "
           rf"$\Delta_x = {parameters['Delta_x']}$, "
@@ -38,6 +36,6 @@ plt.title(rf"$nx = {parameters['nx']}$, "
           rf"$c_{{ini}} = {parameters['c_ini']}$, "
           rf"$c_{{inj}} = {parameters['c_inj']}$", fontsize=8)
 plt.xlabel("célula (i)")
-plt.ylabel("Quantidade (Q)")
+plt.ylabel("concentração (Q)")
 plt.plot(x,y,'ko-', markerfacecolor='cyan', markeredgecolor='k')
 plt.show()

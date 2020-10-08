@@ -5,26 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define DEBUG 0            /* flag de depuração: provê status mais detalhados */
-
-/*====================== Parâmetros a serem ajustados ========================*/
-
-
-#define nx      200         /* nx: número de células */
-#define Delta_t 0.01        /* Δt: passo de tempo (em segundos) */
-#define Delta_x 0.2         /* Δx: largura de cada célula (em m) */
-#define t_final 15000.0     /* tempo final da simulação (em segundos) */
-#define u_bar   0.2e-2      /* ū: velocidade de escoamento (em m/s) */
-#define alpha   0.2e-5      /* α: coeficiente de difusão */
-#define c_ini   115.5       /* concentração inicial nos volumes da malha */
-#define c_inj   7.0e-5      /* concentração de injeção nos vol. da malha */
-
-/*============================================================================*/
-
-void listParameters();
-void initializeArray(double arr[], int len, double value);
-void calculateQ(double old[], double new[]);
-void printAndSaveResults(double arr[], int len);
+#include "main.h"
 
 int main(void)
 {
@@ -32,10 +13,8 @@ int main(void)
     double Q_new[nx];   /* array de Q no tempo n+1 */
     double Q_old[nx];   /* array de Q no tempo n */
 
-    puts("MNED II - Trabalho 1\n====================");
+    puts("\nMNED II - Trabalho 1\n====================");
     puts("por Ariel Nogueira Kovaljski\n");
-
-    if (DEBUG) puts("[INFO] Depuracao ativada! O calculo sera mais lento.\n");
 
     listParameters();
 
@@ -72,21 +51,10 @@ void initializeArray(double arr[], int len, double value)
 /* Calcula as concentrações na malha ao longo do tempo */
 void calculateQ(double old[], double new[])
 {
-    int x, vol;
+    int x;
+    int progress = 0, progress_count = 0;
+    int progress_incr = (t_final/Delta_t) * 5 / 100;
     double t = 0;
-
-    /* --------------- Depuração --------------- */
-    if (DEBUG) {
-        puts("Volumes da Malha\n----------------");
-        for (vol = 0; vol < 5; ++vol) {
-            /* gera um linspace com 5 elementos */
-            printf("%d\t\t", 1 + vol*(nx-1)/(4));
-        }
-        putchar('\n');
-    }
-    /* ----------------------------------------- */
-
-    if(!DEBUG) puts("Calculando...");
 
     do {
 
@@ -104,12 +72,6 @@ void calculateQ(double old[], double new[])
                       alpha * (old[1] - 3*old[0] + 2*c_inj) / Delta_x
                    );
 
-        /* ------ Depuração ------ */
-        if (DEBUG) {
-            printf("\r%f\t", new[0]);
-        }
-        /* ----------------------- */
-
         /*************************************************************
          *
          *            |==@==|==@==|==@==|==@==|==@==|==@==|
@@ -123,11 +85,6 @@ void calculateQ(double old[], double new[])
                         -
                           alpha * (old[x-1] - old[x]) / Delta_x
                        );
-
-            /* -------- Depuração --------- */
-            if ( DEBUG && ( x % (nx/4) == 0) )
-                printf("%f\t", new[x]);
-            /* ---------------------------- */
         }
 
         /*************************************************************
@@ -144,17 +101,13 @@ void calculateQ(double old[], double new[])
                       alpha * (old[x-1] - old[x]) / Delta_x
                    );
 
-        /* ---- Depuração ---- */
-        if (DEBUG) {
-            printf("%f\ttempo atual: %.2fs (%3.2f%% concluido)",
-                   new[x], t, t/t_final * 100);
-            fflush(stdout);
-        } else {
-            printf("\r%3.2f%% concluido (tempo atual: %.2fs)",
-                t/t_final * 100, t);
+        /* incrementa o progresso a cada 5% */
+        if (progress_count == progress_incr){
+            progress_count = 0;
+            ++progress;
+            printf("\rCalculando... %d%% concluido", progress * 5);
             fflush(stdout);
         }
-        /* ------------------- */
 
         /* Atualiza array de valores antigos com os novos para a próxima
            iteração */
@@ -162,6 +115,8 @@ void calculateQ(double old[], double new[])
             old[x] = new[x];
         }
 
+        /* incrementa contador para cada 5% */
+        ++progress_count;
 
     } while ( (t += Delta_t) < t_final);
 
@@ -182,10 +137,10 @@ void printAndSaveResults(double arr[], int len)
 
     /* Error Handling -- Verifica se é possível criar/escrever o arquivo de
                          resultados */
-    if ( (results_file = fopen("results.txt", "w")) == NULL) {
+    if (   (results_file = fopen("./results/results.txt", "w"))    == NULL 
+        && (results_file = fopen("./../results/results.txt", "w")) == NULL) {
         fputs("[ERR] Houve um erro ao escrever o arquivo \"results.txt\"! "
-              "Os resultados nao foram salvos.\n",
-              stderr);
+              "Os resultados nao foram salvos.\n", stderr);
         exit(1);
     }
 
@@ -208,5 +163,5 @@ void printAndSaveResults(double arr[], int len)
     fclose(results_file);   /* fecha o arquivo */
 
     puts("[INFO] Os resultados foram salvos no arquivo \"results.txt\" "
-         "no diretorio do programa.");
+         "no diretorio \"results/\".");
 }
