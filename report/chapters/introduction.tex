@@ -89,21 +89,21 @@ figuras abaixo:
 $x_{i-\frac{1}{2}}$ a $x_{i+\frac{1}{2}}$. Além disso, define-se os incrementos
 no tempo e no espaço como
 
-\begin{equation*}
+\[
     \Delta t = t^{n+1} - t^n \qquad\text{e}\qquad \Delta x = x_{i+\frac{1}{2}}
     - x_{i-\frac{1}{2}}
-\end{equation*}
+\]
 
 \noindent Tem-se, assim, uma integração dupla
 
-\begin{equation*}
+\[
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \left( \int_{t^n}^{t^{n+1}}
     \frac{\partial \Phi}{\partial t}dt \right)dx
     +
     \int_{t^n}^{t^{n+1}} \left(\int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}}
     \frac{\partial f}{\partial x}dx \right)dt
     = 0
-\end{equation*}
+\]
 
 \begin{equation}\label{int dx}
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}}[\Phi(x,t^{n+1}) -
@@ -143,7 +143,10 @@ x_{i-\frac{1}{2}}$ ou $k = x_{i+\frac{1}{2}}$
 \noindent Substituindo as Eq.\ \ref{Qn+1}, \ref{Qn}, \ref{F-1/2} e \ref{F+1/2}
 na Eq.\ \ref{int dx} e dividindo todos os termos por $\Delta x$ tem-se que
 
-\begin{equation*}
+\[
+    % Redimensionamento para largura da página `\resizebox'
+    \resizebox{\textwidth}{!}
+    {$
     \frac{1}{\Delta x} \Bigg\{
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}}[\Phi(x,t^{n+1}) -
     \Phi(x,t^n)]dx
@@ -153,20 +156,21 @@ na Eq.\ \ref{int dx} e dividindo todos os termos por $\Delta x$ tem-se que
     \int_{t^n}^{t^{n+1}} [f(x_{i+\frac{1}{2}},t) - f(x_{i-\frac{1}{2}},t)]dt
     \Bigg\}
     = 0
-\end{equation*}
+    $}
+\]
 
-\begin{equation*}
+\[
     Q_i^{n+1} - Q_i^n + \frac{1}{\Delta x} \Bigg\{
     \int_{t^n}^{t^{n+1}} [f(x_{i+\frac{1}{2}},t) - f(x_{i-\frac{1}{2}},t)]dt
     \Bigg\}
     = 0
-\end{equation*}
+\]
 
-\begin{equation*}
+\[
     Q_i^{n+1} = Q_i^n + \frac{\Delta t}{\Delta t \Delta x} \Bigg\{
     \int_{t^n}^{t^{n+1}} [f(x_{i+\frac{1}{2}},t) - f(x_{i-\frac{1}{2}},t)]dt
     \Bigg\}
-\end{equation*}
+\]
 
 \noindent Por fim, obtém-se
 
@@ -196,19 +200,19 @@ x}$:
 
 \noindent que, ao serem substituídas na Eq.\ \ref{Q e F}, resultam em
 
-\begin{equation*}
+\[
      Q_i^{n+1} = Q_i^n - \frac{\Delta t}{\Delta x} \left[
      \bar{u}Q_i^n - \alpha\frac{(Q_{i+1}^n - Q_i^n)}{\Delta x}
      - \bar{u}Q_{i-1}^n + \alpha\frac{(Q_i^n - Q_{i-1}^n)}{\Delta x}
      \right]
-\end{equation*}
+\]
 
-\begin{equation*}
+\[
     Q_i^{n+1} = Q_i^n - \frac{\Delta t}{\Delta x} \left[
     \bar{u}(Q_i^n - Q_{i-1}^n) - \alpha\frac{(Q_{i+1}^n - 2Q_i^n +
     Q_{i-1}^n)}{\Delta x}
     \right]
-\end{equation*}
+\]
 
 \begin{equation}\label{eq. final}
     Q_i^{n+1} = Q_i^n - \Delta t \left[

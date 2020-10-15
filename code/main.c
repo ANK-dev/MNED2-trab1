@@ -35,8 +35,7 @@ void listParameters()
     printf("Delta_t = %3.2e, Delta_x = %3.2e, u_bar = %3.2e, alpha = %3.2e, "
            "c_inj = %3.2e\n\n", Delta_t, Delta_t, u_bar, alpha, c_inj);
     puts("Constantes da simulacao:");
-    printf("nx = %d, t_final = %f, c_ini = %3.2e\n\n",
-           nx, t_final, c_ini);
+    printf("nx = %d, t_final = %f, c_ini = %3.2e\n\n", nx, t_final, c_ini);
 }
 
 /* Inicializa um array para um valor de entrada */
@@ -83,7 +82,7 @@ void calculateQ(double old[], double new[])
                      * (
                           u_bar * (old[x] - old[x-1])
                         -
-                          alpha * (old[x-1] - old[x]) / Delta_x
+                          alpha * (old[x+1] - 2*old[x] - old[x-1]) / Delta_x
                        );
         }
 
@@ -137,7 +136,7 @@ void printAndSaveResults(double arr[], int len)
 
     /* Error Handling -- Verifica se é possível criar/escrever o arquivo de
                          resultados */
-    if (   (results_file = fopen("./results/results.txt", "w"))    == NULL 
+    if (   (results_file = fopen("./results/results.txt", "w")   ) == NULL 
         && (results_file = fopen("./../results/results.txt", "w")) == NULL) {
         fputs("[ERR] Houve um erro ao escrever o arquivo \"results.txt\"! "
               "Os resultados nao foram salvos.\n", stderr);

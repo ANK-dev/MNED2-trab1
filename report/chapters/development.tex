@@ -1,11 +1,148 @@
 \chapter{Desenvolvimento}
-O desenvolvimento entra aqui.
+Neste capítulo serão abordados os passos e métodos utilizados para se obter a
+solução numérica do problema proposto.
 
-\section{Seção 1}
-A seção 1 entra aqui.
+\section{Condições Inicial e de Contorno}
+A resolução de qualquer equação diferencial parcial (EDP) requer a determinação
+de sua condição(ões) inicial(ais) e de contorno. No caso da EDP discretizada
+(Eq.\ \ref{eq. final}), o mesmo se aplica.
 
-\section{Seção 2}
-A seção 2 entra aqui.
+\[
+    Q_i^{n+1} = Q_i^n - \Delta t
+    \left[
+    \bar{u}\frac{(Q_i^n - Q_{i-1}^n)}{\Delta x}
+    -
+    \alpha\frac{(Q_{i+1}^n - 2Q_i^n + Q_{i-1}^n)}{\Delta x^2}
+    \right]
+\]
 
-\section{Seção 3}
-A seção 3 entra aqui.
+Nota-se que há uma dependência temporal do termo futuro $Q_i^{n+1}$ em relação
+aos termos $Q$ presentes em $n$, e seus vizinhos espaciais $i$, ${i\pm1}$. A
+partir desta relação é possível perceber que, para se calcular o primeiro
+termo, $Q^1$, é necessário um termo de partida, $Q^0$. Se tem, assim, a
+necessidade do estabelecimento de uma condição inicial. Neste trabalho,
+considera-se uma concentração inicial, $c_{\text{ini}}$, constante para toda a
+malha.
+
+Mudando o foco para os volumes da malha, nos volumes $i=0$ e $i=6$ há uma
+dependência de termos localizados além do seu domínio --- $Q_0^n$ e
+$Q_{nx+1}^n$, respectivamente. Para resolver este problema, neste trabalho
+foram adotadas as seguintes condições de contorno:
+
+% Equações lado-a-lado
+\noindent
+\begin{minipage}{.5\linewidth}
+    \begin{equation}
+        c(x=0,t) = c_{\text{inj}}
+    \end{equation}
+\end{minipage}%
+\begin{minipage}{.5\linewidth}
+    \begin{equation}
+        \left(\frac{\partial c}{\partial x}\right)_{x=L_x}^t = 0
+    \end{equation}
+\end{minipage}
+
+\bigskip
+
+Aliado a estas condições, utiliza-se o conceito de \emph{volumes fantasmas},
+para a definição destas condições no discreto. É possível redefinir as
+condições de contorno como uma média entre os dois volumes adjacentes. Ao se
+realizar tal construção para a fronteira esquerda, obtém-se,
+
+\begin{center}
+    \textit{--- Inserir gráfico sobre células fantasmas ---}
+\end{center}
+
+\[
+    c_{\text{inj}} = \frac{Q_0^n + Q_1^n}{2}
+\]
+
+\begin{equation}\label{cont. esq}
+    Q_0^n = 2c_{\text{inj}} - Q_1^n
+\end{equation}
+
+Analogamente, para a fronteira direita, obtém-se,
+
+\[
+  \left(\frac{\partial c}{\partial x}\right)_{x=L_x}^t
+  \approx
+  \frac{Q_{nx+1}^n - Q_{nx}^n}{\Delta x} = 0
+\]
+
+\begin{equation}\label{cont. dir}
+    Q_{nx+1}^n = Q_{nx}^n
+\end{equation}
+
+A partir de ambas as relações, definem-se as equações discretas. Para o contorno
+esquerdo,
+
+\[
+    Q_1^{n+1} = Q_1^n - \Delta t
+    \left[
+    \bar{u}\frac{(Q_1^n - (2c_{\text{inj}} - Q_1^n))}{\Delta x}
+    -
+    \alpha\frac{(Q_2^n - 2Q_1^n + (2c_{\text{inj}} - Q_1^n))}{\Delta x^2}
+    \right]
+\]
+
+\begin{equation}
+    Q_1^{n+1} = Q_1^n - \Delta t
+    \left[
+    \bar{u}\frac{(2Q_1^n - 2c_{\text{inj}})}{\Delta x}
+    -
+    \alpha\frac{(Q_2^n - 3Q_1^n + 2c_{\text{inj}})}{\Delta x^2}
+    \right]
+\end{equation}
+
+\noindent e para o contorno direito,
+
+\[
+    Q_{nx}^{n+1} = Q_{nx}^n - \Delta t
+    \left[
+    \bar{u}\frac{(Q_{nx}^n - Q_{nx-1}^n)}{\Delta x}
+    -
+    \alpha\frac{(Q_{nx}^n - 2Q_{nx}^n + Q_{nx-1}^n)}{\Delta x^2}
+    \right]
+\]
+
+\begin{equation}
+    Q_{nx}^{n+1} = Q_{nx}^n - \Delta t
+    \left[
+    \bar{u}\frac{(Q_{nx}^n - Q_{nx-1}^n)}{\Delta x}
+    -
+    \alpha\frac{(Q_{nx-1}^n - Q_{nx}^n)}{\Delta x^2}
+    \right]
+\end{equation}
+
+\section{Consistência, Convergência e Estabilidade}
+A análise da consistência, convergência e estabilidade de uma EDP tem como
+finalidade garantir que a solução numérica do problema --- calculada por
+algoritmos --- se aproxime o máximo possível da solução real, com algumas
+observações.
+
+\subsection{Consistência}
+Se trata da equivalência da forma algorítmica da EDP em relação a sua forma
+analítica. Um método numérico é dito \emph{consistente} quando, através
+de operações algébricas, é possível recuperar a EDP original.
+
+\subsection{Convergência}
+Se trata da aproximação dos valores numéricos do algoritmo à solução analítica
+da EDP, dado um certo número de iterações. Um método numérico é dito
+\emph{convergente} quando este sempre irá tender aos valores da solução, não
+importando o número de iterações.
+
+\subsection{Estabilidade e Teorema de Lax}
+Se trata do comportamento do algoritmo e seus valores numéricos frente aos
+parâmetros de entrada. Um algoritmo \emph{estável} se comporta de maneira
+esperada frente a uma faixa específica de valores de entrada.
+
+A análise direta da estabilidade de algoritmo é muito difícil, mesmo para os
+casos mais fáceis. Uma possível saída para esse problema é utilizar o Teorema
+da Equivalência de Lax, que diz:
+
+\begin{displayquote}[Peter Lax]
+    ``Para um problema linear de valor inicial bem-posto e um método de
+    discretização consistente, estabilidade é condição necessária e suficiente
+    para a convergência.''
+\end{displayquote}
+

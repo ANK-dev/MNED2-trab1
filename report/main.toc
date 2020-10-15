@@ -1,14 +1,16 @@
-\babel@toc {portuguese}{}
-\contentsline {chapter}{\numberline {1}Introdução}{2}%
-\contentsline {section}{\numberline {1.1}A Equação de Advecção-Difusão}{2}%
-\contentsline {section}{\numberline {1.2}Método dos Volumes Finitos}{3}%
-\contentsline {chapter}{\numberline {2}Desenvolvimento}{6}%
-\contentsline {section}{\numberline {2.1}Seção 1}{6}%
-\contentsline {section}{\numberline {2.2}Seção 2}{6}%
-\contentsline {section}{\numberline {2.3}Seção 3}{6}%
-\contentsline {chapter}{\numberline {3}Resultados}{7}%
-\contentsline {section}{\numberline {3.1}Seção 1}{7}%
-\contentsline {section}{\numberline {3.2}Seção 2}{7}%
-\contentsline {section}{\numberline {3.3}Seção 3}{7}%
-\contentsline {chapter}{\numberline {4}Conclusão}{8}%
-\contentsline {chapter}{\numberline {5}Código Computacional}{9}%
+\babel@toc {brazil}{}
+\contentsline {chapter}{\numberline {1}Introdução}{2}{}%
+\contentsline {section}{\numberline {1.1}A Equação de Advecção-Difusão}{2}{}%
+\contentsline {section}{\numberline {1.2}Método dos Volumes Finitos}{3}{}%
+\contentsline {chapter}{\numberline {2}Desenvolvimento}{6}{}%
+\contentsline {section}{\numberline {2.1}Condições Inicial e de Contorno}{6}{}%
+\contentsline {section}{\numberline {2.2}Consistência, Convergência e Estabilidade}{7}{}%
+\contentsline {subsection}{\numberline {2.2.1}Consistência}{7}{}%
+\contentsline {subsection}{\numberline {2.2.2}Convergência}{7}{}%
+\contentsline {subsection}{\numberline {2.2.3}Estabilidade e Teorema de Lax}{7}{}%
+\contentsline {chapter}{\numberline {3}Resultados}{9}{}%
+\contentsline {section}{\numberline {3.1}Seção 1}{9}{}%
+\contentsline {section}{\numberline {3.2}Seção 2}{9}{}%
+\contentsline {section}{\numberline {3.3}Seção 3}{9}{}%
+\contentsline {chapter}{\numberline {4}Conclusão}{10}{}%
+\contentsline {chapter}{\numberline {5}Código Computacional}{11}{}%
