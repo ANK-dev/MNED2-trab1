@@ -6,7 +6,6 @@ solução numérica do problema proposto.
 A resolução de qualquer equação diferencial parcial (EDP) requer a determinação
 de sua condição(ões) inicial(ais) e de contorno. No caso da EDP discretizada
 (Eq.\ \ref{eq. final}), o mesmo se aplica.
-
 \[
     Q_i^{n+1} = Q_i^n - \Delta t
     \left[
@@ -48,34 +47,27 @@ Aliado a estas condições, utiliza-se o conceito de \emph{volumes fantasmas},
 para a definição destas condições no discreto. É possível redefinir as
 condições de contorno como uma média entre os dois volumes adjacentes. Ao se
 realizar tal construção para a fronteira esquerda, obtém-se,
-
 \begin{center}
     \textit{--- Inserir gráfico sobre células fantasmas ---}
 \end{center}
-
 \[
     c_{\text{inj}} = \frac{Q_0^n + Q_1^n}{2}
 \]
-
 \begin{equation}\label{cont. esq}
     Q_0^n = 2c_{\text{inj}} - Q_1^n
 \end{equation}
-
 Analogamente, para a fronteira direita, obtém-se,
-
 \[
   \left(\frac{\partial c}{\partial x}\right)_{x=L_x}^t
   \approx
   \frac{Q_{nx+1}^n - Q_{nx}^n}{\Delta x} = 0
 \]
-
 \begin{equation}\label{cont. dir}
     Q_{nx+1}^n = Q_{nx}^n
 \end{equation}
 
 A partir de ambas as relações, definem-se as equações discretas. Para o contorno
 esquerdo,
-
 \[
     Q_1^{n+1} = Q_1^n - \Delta t
     \left[
@@ -84,7 +76,6 @@ esquerdo,
     \alpha\frac{(Q_2^n - 2Q_1^n + (2c_{\text{inj}} - Q_1^n))}{\Delta x^2}
     \right]
 \]
-
 \begin{equation}
     Q_1^{n+1} = Q_1^n - \Delta t
     \left[
@@ -93,9 +84,7 @@ esquerdo,
     \alpha\frac{(Q_2^n - 3Q_1^n + 2c_{\text{inj}})}{\Delta x^2}
     \right]
 \end{equation}
-
-\noindent e para o contorno direito,
-
+e para o contorno direito,
 \[
     Q_{nx}^{n+1} = Q_{nx}^n - \Delta t
     \left[
@@ -104,7 +93,6 @@ esquerdo,
     \alpha\frac{(Q_{nx}^n - 2Q_{nx}^n + Q_{nx-1}^n)}{\Delta x^2}
     \right]
 \]
-
 \begin{equation}
     Q_{nx}^{n+1} = Q_{nx}^n - \Delta t
     \left[
@@ -131,18 +119,148 @@ da EDP, dado um certo número de iterações. Um método numérico é dito
 \emph{convergente} quando este sempre irá tender aos valores da solução, não
 importando o número de iterações.
 
-\subsection{Estabilidade e Teorema de Lax}
-Se trata do comportamento do algoritmo e seus valores numéricos frente aos
-parâmetros de entrada. Um algoritmo \emph{estável} se comporta de maneira
-esperada frente a uma faixa específica de valores de entrada.
-
-A análise direta da estabilidade de algoritmo é muito difícil, mesmo para os
+A análise direta da convergência de algoritmo é muito difícil, mesmo para os
 casos mais fáceis. Uma possível saída para esse problema é utilizar o Teorema
 da Equivalência de Lax, que diz:
-
 \begin{displayquote}[Peter Lax]
     ``Para um problema linear de valor inicial bem-posto e um método de
     discretização consistente, estabilidade é condição necessária e suficiente
     para a convergência.''
 \end{displayquote}
+Como a Eq.\ \ref{eq. final} foi obtida a partir da EDP analítica, é certa a
+sua consistência, restando assim, a determinação de sua estabilidade para a
+garantia da convergência.
+
+\subsection{Estabilidade}
+Se trata do comportamento do algoritmo e seus valores numéricos frente aos
+parâmetros de entrada. Um algoritmo \emph{estável} se comporta de maneira
+esperada frente a uma faixa específica de valores de entrada.
+
+Para se determinar a estabilidade da Eq.\ \ref{eq. final}, é possível
+reescrevê-la para a análise através do método de Von Neumann.
+\begin{equation}
+    (Q^*)_i^{n+1} = (s + C)(Q^*)_{i-1}^n + (1 - 2s + C)(Q^*)_i^n +
+    s(Q^*)_{i+1}^n
+\end{equation}
+onde $Q^*$ é solução numérica da EDP, sujeita aos erros de arredondamento do
+computador, $s = \frac{\alpha\Delta t}{\Delta x^2}$ e $C = \frac{\bar{u}\Delta
+t}{\Delta x}$ (número de Courant). Além disso, define-se uma nova equação,
+\begin{equation}\label{eq. final erro}
+    \xi_i^{n+1} = (s + C)\xi_{i-1}^n + (1 - 2s + C)\xi_i^n + s\xi_{i+1}^n
+\end{equation}
+onde $\xi_i^n = Q_i^n - (Q^*)_i^n$ é o erro numérico introduzido em cada ponto
+da malha.
+
+Seguindo o método de Von Neumann, é possível expandir cada termo $\xi_i^n$ em
+uma série de Fourier,
+\begin{equation}
+    \xi_i^n = (G)^n e^{j \theta i}
+\end{equation}
+onde $j$ é a unidade imaginária e G é um fator de amplificação, de forma que,
+\begin{equation}
+    \xi_n^{n+1} = G\xi_i^n
+\end{equation}
+e a estabilidade é garantida se $|G| \leq 1$. Substituindo esses termos em Eq.\
+\ref{eq. final erro}, obtém-se a seguinte equação:
+\begin{equation}
+    G^{n+1}e^{j \theta i} =
+      (s + C)G^n e^{j \theta (i-1)}
+      + (1 - 2s + C)G^n e^{j \theta i}
+      + s G^n e^{j \theta (i+1)}
+\end{equation}
+Dividindo-a por $G^n e^{j \theta i}$,
+\[
+    G = (s + C)e^{-j \theta} + (1 - 2s + C) + se^{j \theta}
+\]
+
+A partir das relações de Euler, $e^{-j \theta} = \cos\theta - j\sin\theta$ \ \&
+\ $e^j\theta = \cos\theta + j\sin\theta$, é possível reescrevê-la como,
+\[
+    G = (s + C)e^{-j \theta} + (1 - 2s + C) + se^{j \theta}
+\]
+\[
+    G = 1 - (2s + C)(1 - \cos\theta) - jC\sin\theta
+\]
+tendo assim,
+\begin{equation}
+    |G| = \sqrt{[1 - (2s + C)(1-\cos\theta)]^2 + C^2\sin^2\theta}\ \leq\ 1
+\end{equation}
+
+O caso limite para esta construção ocorre quando $\sin\theta = \pm 1$ e
+$\cos\theta = 0$. É necessário analisar quais são os valores de $s$ e $C$ que
+mantém a veracidade da inequação.
+\[
+    |G| = \sqrt{[1 - (2s + C)(1)]^2 + C^2} \ \leq\ 1
+\]
+Se $2s + C \leq 1$ a condição é satisfeita. O que acontece, porém, no novo caso
+limite de $2s + C = 1$?
+\[
+    |G| = \sqrt{(1-1)^2 + C^2} = \sqrt{C^2} = C
+\]
+Como $2s + C = 1$, C \textbf{tem} que ser menor que 1 para um $s \neq 0$. Desta
+forma,
+\[
+    2\frac{\alpha\Delta t}{\Delta x^2} + \frac{\bar{u}\Delta t}{\Delta x} \leq 1
+\]
+\[
+    \Delta t
+    \left(
+        \frac{2\alpha}{\Delta x^2} + \frac{\bar{u}\Delta t}{\Delta x}
+    \right) \leq 1
+\]
+\begin{equation}
+    \Delta t
+    \leq
+    \frac{1}{\frac{2\alpha}{\Delta x^2} + \frac{\bar{u}}{\Delta x}}
+\end{equation}
+
+Tem-se, então, um método \emph{condicionalmente estável}, ou seja, que depende
+de uma faixa de valores para garantir a estabilidade de seu funcionamento.
+
+\section{Programação}
+Aliado destes conceitos, foi possível construir um programa em linguagem C que
+calcula as concentrações para cada célula ao longo do tempo, exportando um
+arquivo de texto com os resultados; este arquivo, então, é lido por um
+\textit{script} Python que gera um gráfico correspondente.
+
+O programa principal possui a seguinte estrutura, descrita em pseudo-código:
+
+\begin{verbatim}
+// Vetores para concentração no tempo `n' e no tempo `n+1', respectivamente
+vetor Q_antigo
+vetor Q_novo
+
+// Inicializa ambos os vetores com os valores da concentração inicial (c_ini)
+inicializaVetor(Q_antigo)
+inicializaVetor(Q_novo)
+
+// Cálculo de Q, iterado ao longo do tempo
+faça {
+
+// Cálculo do volume da fronteira esquerda
+Q_novo[0] := Q_antigo[0] - Delta_t/Delta_x * ( u_bar * (2*Q_antigo[0] - 2*c_inj)
+         - alpha * (Q_antigo[1] - 3*Q_antigo[0] + 2*c_inj) / Delta_x)
+
+// Cálculo de volumes do centro da malha
+para (x := 1 até nx - 1) {
+    Q_novo[x] := Q_antigo[x] - Delta_t/Delta_x * (u_bar * (Q_antigo[x]
+                - Q_antigo[x-1]) - alpha * (Q_antigo[x+1] - 2*Q_antigo[x]
+                - Q_antigo[x-1]) / Delta_x )
+}
+
+// Cálculo do volume da fronteira direita
+Q_novo[x] := Q_antigo[x] - Delta_t/Delta_x * ( u_bar * (Q_antigo[x] -
+            Q_antigo[x-1]) - alpha
+            * (Q_antigo[x-1] - Q_antigo[x]) / Delta_x)
+
+// Atualiza vetores antigos para a próxima iteração
+para (x := 0 até nx) {
+    Q_antigo[x] = Q_novo[x];
+}
+
+// Incrementa passo de tempo
+t := t + Delta_t
+} enquanto (t < t_final)
+
+\end{verbatim}
 

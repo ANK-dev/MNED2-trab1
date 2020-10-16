@@ -7,10 +7,11 @@
 \contentsline {section}{\numberline {2.2}Consistência, Convergência e Estabilidade}{7}{}%
 \contentsline {subsection}{\numberline {2.2.1}Consistência}{7}{}%
 \contentsline {subsection}{\numberline {2.2.2}Convergência}{7}{}%
-\contentsline {subsection}{\numberline {2.2.3}Estabilidade e Teorema de Lax}{7}{}%
-\contentsline {chapter}{\numberline {3}Resultados}{9}{}%
-\contentsline {section}{\numberline {3.1}Seção 1}{9}{}%
-\contentsline {section}{\numberline {3.2}Seção 2}{9}{}%
-\contentsline {section}{\numberline {3.3}Seção 3}{9}{}%
-\contentsline {chapter}{\numberline {4}Conclusão}{10}{}%
-\contentsline {chapter}{\numberline {5}Código Computacional}{11}{}%
+\contentsline {subsection}{\numberline {2.2.3}Estabilidade}{8}{}%
+\contentsline {section}{\numberline {2.3}Programação}{9}{}%
+\contentsline {chapter}{\numberline {3}Resultados}{11}{}%
+\contentsline {section}{\numberline {3.1}Seção 1}{11}{}%
+\contentsline {section}{\numberline {3.2}Seção 2}{11}{}%
+\contentsline {section}{\numberline {3.3}Seção 3}{11}{}%
+\contentsline {chapter}{\numberline {4}Conclusão}{12}{}%
+\contentsline {chapter}{\numberline {5}Código Computacional}{13}{}%

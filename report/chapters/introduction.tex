@@ -11,7 +11,6 @@ variações espaciais e temporais da concentração de uma substância escoando 
 fluído. Um exemplo bastante didático consiste no despejo de esgoto em um
 afluente: o contaminante sofrerá efeitos difusivos --- concentrando-se ao redor
 da saída --- e efeitos advectivos --- sendo carregado no sentido da correnteza.
-
 \begin{figure}[h]
     \centering
     \captionsetup{justification=centering}
@@ -20,21 +19,16 @@ da saída --- e efeitos advectivos --- sendo carregado no sentido da correnteza.
     Rio Bengala}
 \end{figure}
 
-
 Para um problema unidimensional tem-se a seguinte forma,
-
 \begin{equation}\label{adv-dif}
     \frac{\partial c}{\partial t} + \frac{\partial}{\partial x}(uc)
     - \frac{\partial}{\partial x}\left( D \frac{\partial c}{\partial x} \right)
     = 0
 \end{equation}
-
-\noindent onde $c$ indica a concentração, $u$ a velocidade e $D$ o coeficiente
-de difusão.
+onde $c$ indica a concentração, $u$ a velocidade e $D$ o coeficiente de difusão.
 
 Considerando que para $u$ e $D$ constantes, tem-se $\bar{u}$ e $\alpha$,
 respectivamente, é possível reescrever Eq.\ \ref{adv-dif} como,
-
 \begin{equation}
     \frac{\partial c}{\partial t} + \bar{u}\frac{\partial c}{\partial x} -
     \alpha\frac{\partial^2 c}{\partial x^2} = 0
@@ -48,12 +42,10 @@ avaliadas nos centros dos mesmos.
 
 A partir da Eq.\ \ref{adv-dif}, para adaptá-la ao métodos dos volumes finitos,
 é possível reescrevê-la como
-
 \begin{equation}\label{adv-dif-volfin}
     \frac{\partial\Phi}{\partial t} + \frac{\partial f}{\partial x} = 0
 \end{equation}
-
-\noindent onde,
+onde,
 
 % Equações lado-a-lado
 \noindent
@@ -71,31 +63,26 @@ A partir da Eq.\ \ref{adv-dif}, para adaptá-la ao métodos dos volumes finitos,
 \bigskip
 Para a solução, considera-se um domínio discretizado e subdividido conforme
 figuras abaixo:
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{dominio_sol}
     \caption{Partição do domínio da solução}
 \end{figure}
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{iesimo_vol}
     \caption{Posições ao redor do $i$-ésimo volume da malha}
 \end{figure}
 
-\noindent Para obter-se a discretização do domínio, integra-se a Eq.\
+Para obter-se a discretização do domínio, integra-se a Eq.\
 \ref{adv-dif-volfin} no intervalo de tempo de $t^n$ a $t^{n+1}$ e no espaço de
 $x_{i-\frac{1}{2}}$ a $x_{i+\frac{1}{2}}$. Além disso, define-se os incrementos
 no tempo e no espaço como
-
 \[
     \Delta t = t^{n+1} - t^n \qquad\text{e}\qquad \Delta x = x_{i+\frac{1}{2}}
     - x_{i-\frac{1}{2}}
 \]
-
-\noindent Tem-se, assim, uma integração dupla
-
+Tem-se, assim, uma integração dupla
 \[
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \left( \int_{t^n}^{t^{n+1}}
     \frac{\partial \Phi}{\partial t}dt \right)dx
@@ -104,7 +91,6 @@ no tempo e no espaço como
     \frac{\partial f}{\partial x}dx \right)dt
     = 0
 \]
-
 \begin{equation}\label{int dx}
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}}[\Phi(x,t^{n+1}) -
     \Phi(x,t^n)]dx
@@ -112,37 +98,29 @@ no tempo e no espaço como
     \int_{t^n}^{t^{n+1}} [f(x_{i+\frac{1}{2}},t) - f(x_{i-\frac{1}{2}},t)]dt
     = 0
 \end{equation}
-
-\noindent Define-se uma variável $Q_i^k$ que consiste no valor médio aproximado
+Define-se uma variável $Q_i^k$ que consiste no valor médio aproximado
 de $\Phi$ no espaço, dado um tempo $k$ onde $k = t^n$ ou $k = t^{n+1}$
-
 \begin{equation}\label{Qn+1}
     Q_i^n \approx \frac{1}{\Delta x}
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \Phi(x,t^n)dx
 \end{equation}
-
 \begin{equation}\label{Qn}
     Q_i^{n+1} \approx \frac{1}{\Delta x}
     \int_{x_{i-\frac{1}{2}}}^{x_{i+\frac{1}{2}}} \Phi(x,t^{n+1})dx
 \end{equation}
-
-\noindent Analogamente, define-se os fluxos como um $F_k^n$ que consiste no
+Analogamente, define-se os fluxos como um $F_k^n$ que consiste no
 valor médio aproximado de $F$ no tempo, dada uma posição $k$ onde $k =
 x_{i-\frac{1}{2}}$ ou $k = x_{i+\frac{1}{2}}$
-
 \begin{equation}\label{F-1/2}
     F_{i-\frac{1}{2}}^n \approx \frac{1}{\Delta t}
     \int_{t^n}^{t^{n+1}} f(x_{i-\frac{1}{2}},t)dt
 \end{equation}
-
 \begin{equation}\label{F+1/2}
     F_{i+\frac{1}{2}}^n \approx \frac{1}{\Delta t}
     \int_{t^n}^{t^{n+1}} f(x_{i+\frac{1}{2}},t)dt
 \end{equation}
-
-\noindent Substituindo as Eq.\ \ref{Qn+1}, \ref{Qn}, \ref{F-1/2} e \ref{F+1/2}
+Substituindo as Eq.\ \ref{Qn+1}, \ref{Qn}, \ref{F-1/2} e \ref{F+1/2}
 na Eq.\ \ref{int dx} e dividindo todos os termos por $\Delta x$ tem-se que
-
 \[
     % Redimensionamento para largura da página `\resizebox'
     \resizebox{\textwidth}{!}
@@ -158,62 +136,49 @@ na Eq.\ \ref{int dx} e dividindo todos os termos por $\Delta x$ tem-se que
     = 0
     $}
 \]
-
 \[
     Q_i^{n+1} - Q_i^n + \frac{1}{\Delta x} \Bigg\{
     \int_{t^n}^{t^{n+1}} [f(x_{i+\frac{1}{2}},t) - f(x_{i-\frac{1}{2}},t)]dt
     \Bigg\}
     = 0
 \]
-
 \[
     Q_i^{n+1} = Q_i^n + \frac{\Delta t}{\Delta t \Delta x} \Bigg\{
     \int_{t^n}^{t^{n+1}} [f(x_{i+\frac{1}{2}},t) - f(x_{i-\frac{1}{2}},t)]dt
     \Bigg\}
 \]
-
-\noindent Por fim, obtém-se
-
+Por fim, obtém-se
 \begin{equation}\label{Q e F}
     Q_i^{n+1} = Q_i^n - \frac{\Delta t}{\Delta x}(F_{i+\frac{1}{2}}^n -
     F_{i-\frac{1}{2}}^n)
 \end{equation}
-
-\noindent onde o valor médio de $\Phi$ no volume de controle, $Q$, deve
+onde o valor médio de $\Phi$ no volume de controle, $Q$, deve
 ser atualizado iterativamente para o próximo passo de tempo.
 
 Para a aproximação dos fluxos, dentre as possíveis metodologias, foi escolhido o
 uso de uma aproximação \emph{upwind} para a concentração $c$:
-
 \begin{equation}
     c \approx \frac{(Q_i^n - Q_{i-1}^n)}{\Delta x}
 \end{equation}
-
-\noindent e uma aproximação
-centrada para a derivada espacial da concentração $\frac{\partial c}{\partial
-x}$:
-
+e uma aproximação centrada para a derivada espacial da concentração
+$\frac{\partial c}{\partial x}$:
 \begin{equation}
     \frac{\partial c}{\partial x} \approx \frac{(Q_{i+1}^n - 2Q_i^n +
     Q_{i-1}^n)}{\Delta x^2}
 \end{equation}
-
-\noindent que, ao serem substituídas na Eq.\ \ref{Q e F}, resultam em
-
+que, ao serem substituídas na Eq.\ \ref{Q e F}, resultam em
 \[
      Q_i^{n+1} = Q_i^n - \frac{\Delta t}{\Delta x} \left[
      \bar{u}Q_i^n - \alpha\frac{(Q_{i+1}^n - Q_i^n)}{\Delta x}
      - \bar{u}Q_{i-1}^n + \alpha\frac{(Q_i^n - Q_{i-1}^n)}{\Delta x}
      \right]
 \]
-
 \[
     Q_i^{n+1} = Q_i^n - \frac{\Delta t}{\Delta x} \left[
     \bar{u}(Q_i^n - Q_{i-1}^n) - \alpha\frac{(Q_{i+1}^n - 2Q_i^n +
     Q_{i-1}^n)}{\Delta x}
     \right]
 \]
-
 \begin{equation}\label{eq. final}
     Q_i^{n+1} = Q_i^n - \Delta t \left[
     \bar{u}\frac{(Q_i^n - Q_{i-1}^n)}{\Delta x} - \alpha\frac{(Q_{i+1}^n -
