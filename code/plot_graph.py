@@ -25,11 +25,14 @@ for line_number, line in enumerate(f):
         y.append( float( (line.split(',')[1]).split('\n')[0] ) )
 
 # Configura e exibe o gráfico
-plt.grid(True)
+fig,ax = plt.subplots()
+fig.set_size_inches(8, 7)   # Size of the window (1in = 100px)
+ax.grid(True)
+
 plt.suptitle("Concentração X Célula")
 plt.title(rf"$nx = {parameters['nx']}$, " 
           rf"$\Delta t = {parameters['Delta_t']}$, "
-          rf"$\Delta_x = {parameters['Delta_x']}$, "
+          rf"$\Delta x = {parameters['Delta_x']}$, "
           rf"$t_{{final}} = {parameters['t_final']}$, "
           rf"$\bar{{u}} = {parameters['u_bar']}$, "
           rf"$\alpha = {parameters['alpha']}$, "

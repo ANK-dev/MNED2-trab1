@@ -223,44 +223,70 @@ calcula as concentrações para cada célula ao longo do tempo, exportando um
 arquivo de texto com os resultados; este arquivo, então, é lido por um
 \textit{script} Python que gera um gráfico correspondente.
 
-O programa principal possui a seguinte estrutura, descrita em pseudo-código:
+O programa principal possui a seguinte estrutura, descrita em C:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\footnotesize]
 // Vetores para concentração no tempo `n' e no tempo `n+1', respectivamente
-vetor Q_antigo
-vetor Q_novo
+double Q_old[];
+double Q_new[];
 
 // Inicializa ambos os vetores com os valores da concentração inicial (c_ini)
 inicializaVetor(Q_antigo)
 inicializaVetor(Q_novo)
 
 // Cálculo de Q, iterado ao longo do tempo
-faça {
+do {
 
 // Cálculo do volume da fronteira esquerda
-Q_novo[0] := Q_antigo[0] - Delta_t/Delta_x * ( u_bar * (2*Q_antigo[0] - 2*c_inj)
-         - alpha * (Q_antigo[1] - 3*Q_antigo[0] + 2*c_inj) / Delta_x)
+Q_new[0] = Q_old[0] - Delta_t/Delta_x
+           * (
+               u_bar * (2*Q_old[0] - 2*c_inj)
+              -
+               alpha * (Q_old[1] - 3*Q_old[0] + 2*c_inj) / Delta_x
+             );
 
 // Cálculo de volumes do centro da malha
-para (x := 1 até nx - 1) {
-    Q_novo[x] := Q_antigo[x] - Delta_t/Delta_x * (u_bar * (Q_antigo[x]
-                - Q_antigo[x-1]) - alpha * (Q_antigo[x+1] - 2*Q_antigo[x]
-                - Q_antigo[x-1]) / Delta_x )
+for (x = 1; x < nx - 1; ++x) {
+    Q_new[x] = Q_old[x] - Delta_t/Delta_x
+               * (
+                   u_bar * (Q_old[x] - Q_old[x-1])
+                  -
+                   alpha * (Q_old[x+1] - 2*Q_old[x] - Q_old[x-1]) / Delta_x
+                 );
 }
 
 // Cálculo do volume da fronteira direita
-Q_novo[x] := Q_antigo[x] - Delta_t/Delta_x * ( u_bar * (Q_antigo[x] -
-            Q_antigo[x-1]) - alpha
-            * (Q_antigo[x-1] - Q_antigo[x]) / Delta_x)
+Q_new[x] = Q_old[x] - Delta_t/Delta_x
+           * (
+               u_bar * (Q_old[x] - Q_old[x-1])
+              -
+               alpha * (Q_old[x-1] - Q_old[x]) / Delta_x
+             );
 
 // Atualiza vetores antigos para a próxima iteração
-para (x := 0 até nx) {
-    Q_antigo[x] = Q_novo[x];
+for (x = 0; x < nx; ++x) {
+    Q_old[x] = Q_new[x];
 }
 
 // Incrementa passo de tempo
-t := t + Delta_t
-} enquanto (t < t_final)
+} while ( (t += Delta_t) < t_final);
 
-\end{verbatim}
+\end{Verbatim}
 
+São definidos dois vetores, \verb|Q_old[]| e \verb|Q_new[]|, que correspondem
+as concentrações $Q$ no tempo $n$ e $n+1$, respectivamente. Antes do cálculo
+das concentrações, os vetores são inicializados, em um simples laço \verb|for|,
+com os valores de concentração inicial $c_\text{ini}$.
+
+A cada iteração do laço \verb|do-while|, o tempo \verb|t| é incrementado por
+uma quantidade \verb|Delta_t|, que obedece as regras de estabilidade descritas
+na seção anterior. Ao longo da iteração, o vetor \verb|Q_new[]| é calculado
+para as fronteiras e para o centro da malha, em função de \verb|Q_old[]|. Antes
+do fim da iteração, os vetores \verb|Q_old[]| são atualizados com os valores de
+\verb|Q_new[]|, o tempo é incrementado, e então a nova iteração é iniciada.
+
+Ao fim da execução, o vetor \verb|Q_new[]|, terá os resultados da concentração
+de cada célula da malha, correspondente a cada índice do vetor, no tempo
+\verb|t = t_final|. Os pares índice-concentração são exportados em um arquivo
+de texto, linha-a-linha, para serem lidos e plotados pelo \textit{script}
+Python.

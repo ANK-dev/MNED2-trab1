@@ -10,7 +10,7 @@
 \contentsline {subsection}{\numberline {2.2.3}Estabilidade}{8}{}%
 \contentsline {section}{\numberline {2.3}Programação}{9}{}%
 \contentsline {chapter}{\numberline {3}Resultados}{11}{}%
-\contentsline {section}{\numberline {3.1}Seção 1}{11}{}%
+\contentsline {section}{\numberline {3.1}Resultados para variações de $nx$}{11}{}%
 \contentsline {section}{\numberline {3.2}Seção 2}{11}{}%
 \contentsline {section}{\numberline {3.3}Seção 3}{11}{}%
 \contentsline {chapter}{\numberline {4}Conclusão}{12}{}%
