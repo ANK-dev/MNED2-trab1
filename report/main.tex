@@ -9,6 +9,7 @@
 \usepackage{caption}
 \usepackage{csquotes}
 \usepackage{fancyvrb}
+\usepackage{float}
 
 \usepackage{tocloft}
 \renewcommand \cftchapdotsep{4.5}
@@ -28,6 +29,8 @@
     \input{titlepage.tex}
 
     \tableofcontents
+    \newpage
+    \listoffigures
 
     \include{chapters/introduction}
     \include{chapters/development}

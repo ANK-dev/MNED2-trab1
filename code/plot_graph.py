@@ -18,11 +18,16 @@ for line_number, line in enumerate(f):
         parameters[line.split('=')[0]] = (line.split('=')[1]).split('\n')[0]
     elif line_number == 8:
         # Pula linha separadora
-        next(f)
+        pass
     else:
         # Separa valores na lista `x` e na lista `y`
         x.append( int(line.split(',')[0]) )
         y.append( float( (line.split(',')[1]).split('\n')[0] ) )
+
+        # Resolvendo problema da célula
+        # x.append( float(line.split(',')[0]) )
+
+
 
 # Configura e exibe o gráfico
 fig,ax = plt.subplots()
@@ -38,7 +43,11 @@ plt.title(rf"$nx = {parameters['nx']}$, "
           rf"$\alpha = {parameters['alpha']}$, "
           rf"$c_{{ini}} = {parameters['c_ini']}$, "
           rf"$c_{{inj}} = {parameters['c_inj']}$", fontsize=8)
-plt.xlabel("célula (i)")
+# Rótulo X -- descomentar depois
+# plt.xlabel("célula (i)")
+
+# Rótulo X -- resolvendo problema da célula
+plt.xlabel("índice célula (i)")
 plt.ylabel("concentração (Q)")
 plt.plot(x,y,'ko-', markerfacecolor='cyan', markeredgecolor='k')
 plt.show()

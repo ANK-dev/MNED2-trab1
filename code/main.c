@@ -32,7 +32,7 @@ void listParameters()
 {
     puts("Parametros\n----------");
     puts("Constantes da equacao:");
-    printf("Delta_t = %3.2e, Delta_x = %3.2e, u_bar = %3.2e, alpha = %3.2e, "
+    printf("Delta_t = %f, Delta_x = %f, u_bar = %3.2e, alpha = %3.2e, "
            "c_inj = %3.2e\n\n", Delta_t, Delta_t, u_bar, alpha, c_inj);
     puts("Constantes da simulacao:");
     printf("nx = %d, t_final = %f, c_ini = %3.2e\n\n", nx, t_final, c_ini);
@@ -64,12 +64,11 @@ void calculateQ(double old[], double new[])
          *            Para o volume da fronteira esquerda
          *        o índice 0 refere-se ao volume nº 1 da malha
          */
-        new[0] = old[0] - Delta_t/Delta_x
-                 * (
-                      u_bar * (2*old[0] - 2*c_inj)
-                    -
-                      alpha * (old[1] - 3*old[0] + 2*c_inj) / Delta_x
-                   );
+        new[0] = old[0] - Delta_t/Delta_x * (
+                    u_bar * (2*old[0] - 2*c_inj) 
+                  - alpha * (old[1] - 3*old[0] + 2*c_inj) / Delta_x
+                 );
+        /* new[0] = old[0] - ( ( (Delta_t)/(Delta_x) ) * ( (u_bar) * (2*old[0] - 2*(c_inj)) - (alpha) * (old[1] - 3*old[0] + 2*(c_inj)) / (Delta_x) ) ); */
 
         /*************************************************************
          *
@@ -78,12 +77,11 @@ void calculateQ(double old[], double new[])
          *             Para os volumes do centro da malha
          */
         for (x = 1; x < nx - 1; ++x) {
-            new[x] = old[x] - Delta_t/Delta_x
-                     * (
-                          u_bar * (old[x] - old[x-1])
-                        -
-                          alpha * (old[x+1] - 2*old[x] - old[x-1]) / Delta_x
-                       );
+            new[x] = old[x] - Delta_t/Delta_x * (
+                        u_bar * (old[x] - old[x-1]) 
+                      - alpha * (old[x+1] - 2*old[x] + old[x-1]) / Delta_x
+                     );
+            /* new[x] = old[x] - ( ( (Delta_t)/(Delta_x) ) * ( (u_bar) * (old[x] - old[x-1]) - (alpha) * (old[x+1] - 2*old[x] + old[x-1]) / (Delta_x) ) ); */
         }
 
         /*************************************************************
@@ -93,12 +91,11 @@ void calculateQ(double old[], double new[])
          *             Para o volume da fronteira direita
          *            x possui valor de nx - 1 nesse ponto
          */
-        new[x] = old[x] - Delta_t/Delta_x
-                 * (
-                      u_bar * (old[x] - old[x-1])
-                    -
-                      alpha * (old[x-1] - old[x]) / Delta_x
-                   );
+        new[x] = old[x] - Delta_t/Delta_x * (
+                    u_bar * (old[x] - old[x-1])
+                  - alpha * (old[x-1] - old[x]) / Delta_x
+                 );
+        /* new[x] = old[x] - ( ( (Delta_t)/(Delta_x) ) * ( (u_bar) * (old[x] - old[x-1]) - (alpha) * (old[x-1] - old[x]) / (Delta_x) ) ); */
 
         /* incrementa o progresso a cada 5% */
         if (progress_count == progress_incr){
@@ -117,7 +114,7 @@ void calculateQ(double old[], double new[])
         /* incrementa contador para cada 5% */
         ++progress_count;
 
-    } while ( (t += Delta_t) < t_final);
+    } while ( (t += Delta_t) <= t_final);
 
 }
 
@@ -155,9 +152,15 @@ void printAndSaveResults(double arr[], int len)
             "c_inj=%f\n",
             nx, Delta_t, Delta_x, t_final, u_bar, alpha, c_ini, c_inj);
     fputs("********************\n", results_file);
+
     for (i = 0; i < len; ++i) {
         fprintf(results_file, "%d,%f\n", i + 1, arr[i]);
     }
+
+    /* Testando problema de células -- imprime posição x da célula */
+    /* for (i = 0; i < len; ++i) {
+        fprintf(results_file, "%f,%f\n", Delta_x * i, arr[i]);
+    } */
 
     fclose(results_file);   /* fecha o arquivo */
 

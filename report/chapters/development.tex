@@ -47,9 +47,6 @@ Aliado a estas condições, utiliza-se o conceito de \emph{volumes fantasmas},
 para a definição destas condições no discreto. É possível redefinir as
 condições de contorno como uma média entre os dois volumes adjacentes. Ao se
 realizar tal construção para a fronteira esquerda, obtém-se,
-\begin{center}
-    \textit{--- Inserir gráfico sobre células fantasmas ---}
-\end{center}
 \[
     c_{\text{inj}} = \frac{Q_0^n + Q_1^n}{2}
 \]
@@ -238,30 +235,23 @@ inicializaVetor(Q_novo)
 do {
 
 // Cálculo do volume da fronteira esquerda
-Q_new[0] = Q_old[0] - Delta_t/Delta_x
-           * (
-               u_bar * (2*Q_old[0] - 2*c_inj)
-              -
-               alpha * (Q_old[1] - 3*Q_old[0] + 2*c_inj) / Delta_x
-             );
+Q_new[0] = Q_old[0] - Delta_t/Delta_x * (
+            u_bar * (2*Q_old[0] - 2*c_inj)
+          - alpha * (Q_old[1] - 3*Q_old[0] + 2*c_inj) / Delta_x
+         );
 
 // Cálculo de volumes do centro da malha
 for (x = 1; x < nx - 1; ++x) {
-    Q_new[x] = Q_old[x] - Delta_t/Delta_x
-               * (
-                   u_bar * (Q_old[x] - Q_old[x-1])
-                  -
-                   alpha * (Q_old[x+1] - 2*Q_old[x] - Q_old[x-1]) / Delta_x
-                 );
-}
+    Q_new[x] = Q_old[x] - Delta_t/Delta_x * (
+                u_bar * (Q_old[x] - Q_old[x-1])
+              - alpha * (Q_old[x+1] - 2*Q_old[x] + Q_old[x-1]) / Delta_x
+             );
 
 // Cálculo do volume da fronteira direita
-Q_new[x] = Q_old[x] - Delta_t/Delta_x
-           * (
-               u_bar * (Q_old[x] - Q_old[x-1])
-              -
-               alpha * (Q_old[x-1] - Q_old[x]) / Delta_x
-             );
+Q_new[x] = Q_old[x] - Delta_t/Delta_x * (
+            u_bar * (Q_old[x] - Q_old[x-1])
+          - alpha * (Q_old[x-1] - Q_old[x]) / Delta_x
+         );
 
 // Atualiza vetores antigos para a próxima iteração
 for (x = 0; x < nx; ++x) {
@@ -269,7 +259,7 @@ for (x = 0; x < nx; ++x) {
 }
 
 // Incrementa passo de tempo
-} while ( (t += Delta_t) < t_final);
+} while ( (t += Delta_t) <= t_final);
 
 \end{Verbatim}
 

@@ -1,17 +1,22 @@
 \babel@toc {brazil}{}
-\contentsline {chapter}{\numberline {1}Introdução}{2}{}%
-\contentsline {section}{\numberline {1.1}A Equação de Advecção-Difusão}{2}{}%
-\contentsline {section}{\numberline {1.2}Método dos Volumes Finitos}{3}{}%
-\contentsline {chapter}{\numberline {2}Desenvolvimento}{6}{}%
-\contentsline {section}{\numberline {2.1}Condições Inicial e de Contorno}{6}{}%
-\contentsline {section}{\numberline {2.2}Consistência, Convergência e Estabilidade}{7}{}%
-\contentsline {subsection}{\numberline {2.2.1}Consistência}{7}{}%
-\contentsline {subsection}{\numberline {2.2.2}Convergência}{7}{}%
-\contentsline {subsection}{\numberline {2.2.3}Estabilidade}{8}{}%
-\contentsline {section}{\numberline {2.3}Programação}{9}{}%
-\contentsline {chapter}{\numberline {3}Resultados}{11}{}%
-\contentsline {section}{\numberline {3.1}Resultados para variações de $nx$}{11}{}%
-\contentsline {section}{\numberline {3.2}Seção 2}{11}{}%
-\contentsline {section}{\numberline {3.3}Seção 3}{11}{}%
-\contentsline {chapter}{\numberline {4}Conclusão}{12}{}%
-\contentsline {chapter}{\numberline {5}Código Computacional}{13}{}%
+\contentsline {chapter}{\numberline {1}Introdução}{3}{}%
+\contentsline {section}{\numberline {1.1}A Equação de Advecção-Difusão}{3}{}%
+\contentsline {section}{\numberline {1.2}Método dos Volumes Finitos}{4}{}%
+\contentsline {chapter}{\numberline {2}Desenvolvimento}{7}{}%
+\contentsline {section}{\numberline {2.1}Condições Inicial e de Contorno}{7}{}%
+\contentsline {section}{\numberline {2.2}Consistência, Convergência e Estabilidade}{8}{}%
+\contentsline {subsection}{\numberline {2.2.1}Consistência}{8}{}%
+\contentsline {subsection}{\numberline {2.2.2}Convergência}{8}{}%
+\contentsline {subsection}{\numberline {2.2.3}Estabilidade}{9}{}%
+\contentsline {section}{\numberline {2.3}Programação}{10}{}%
+\contentsline {chapter}{\numberline {3}Resultados}{12}{}%
+\contentsline {section}{\numberline {3.1}Resultados para variações de $L_x$}{12}{}%
+\contentsline {section}{\numberline {3.2}Resultados para variações de $nx$}{15}{}%
+\contentsline {section}{\numberline {3.3}Resultados para variações de $\bar {u}$}{16}{}%
+\contentsline {section}{\numberline {3.4}Resultados para variações de $\alpha $}{17}{}%
+\contentsline {section}{\numberline {3.5}Resultados para $\bar {u}=0$ e variações de $\alpha $}{20}{}%
+\contentsline {section}{\numberline {3.6}Resultados para variações de $c_\text {ini}$}{22}{}%
+\contentsline {section}{\numberline {3.7}Resultados para variações de $c_\text {inj}$}{23}{}%
+\contentsline {section}{\numberline {3.8}Resultados para variações de $t_\text {final}$}{25}{}%
+\contentsline {chapter}{\numberline {4}Conclusão}{28}{}%
+\contentsline {chapter}{\numberline {5}Código Computacional}{29}{}%

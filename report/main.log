@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.8)  16 OCT 2020 11:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.8)  16 OCT 2020 20:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -179,6 +179,14 @@ Package: fancyvrb 2020/05/03 v3.6 verbatim text (tvz,hv)
 \FV@StepNumber=\count275
 \FV@OutFile=\write3
 )
+(c:/texlive/2020/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count276
+\float@exts=\toks24
+\float@box=\box50
+\@float@everytoks=\toks25
+\@floatcapt=\box51
+)
 (c:/texlive/2020/texmf-dist/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
 Package tocloft Info: The document has chapter divisions on input line 51.
@@ -211,8 +219,8 @@ Package tocloft Info: The document has chapter divisions on input line 51.
 \cftbeforefigskip=\skip78
 \cftfigindent=\skip79
 \cftfignumwidth=\skip80
-\c@lofdepth=\count276
-\c@lotdepth=\count277
+\c@lofdepth=\count277
+\c@lotdepth=\count278
 \cftbeforelottitleskip=\skip81
 \cftafterlottitleskip=\skip82
 \cftbeforetabskip=\skip83
@@ -221,12 +229,12 @@ Package tocloft Info: The document has chapter divisions on input line 51.
 )
 (c:/texlive/2020/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2019/10/16 v2.13 Sectioning titles
-\ttl@box=\box50
+\ttl@box=\box52
 \beforetitleunit=\skip86
 \aftertitleunit=\skip87
 \ttl@plus=\dimen156
 \ttl@minus=\dimen157
-\ttl@toksa=\toks24
+\ttl@toksa=\toks26
 \titlewidth=\dimen158
 \titlewidthlast=\dimen159
 \titlewidthfirst=\dimen160
@@ -261,43 +269,44 @@ Package csquotes Info: Redefining alias 'default' -> 'brazil'.
 
 (c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
-\l__kernel_color_stack_int=\count278
-\l__pdf_internal_box=\box51
+\l__kernel_color_stack_int=\count279
+\l__pdf_internal_box=\box53
 )
 (./main.aux (./chapters/introduction.aux) (./chapters/development.aux)
 (./chapters/results.aux) (./chapters/conclusion.aux) (./chapters/code.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 (c:/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count279
+\scratchcounter=\count280
 \scratchdimen=\dimen163
-\scratchbox=\box52
-\nofMPsegments=\count280
-\nofMParguments=\count281
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count282
+\scratchbox=\box54
+\nofMPsegments=\count281
+\nofMParguments=\count282
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count283
 \MPscratchDim=\dimen164
-\MPnumerator=\count283
-\makeMPintoPDFobject=\count284
-\everyMPtoPDFconversion=\toks26
+\MPnumerator=\count284
+\makeMPintoPDFobject=\count285
+\everyMPtoPDFconversion=\toks28
 ) (c:/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -330,63 +339,223 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [1]
+ [1] (./main.lof)
+\tf@lof=\write5
+\openout5 = `main.lof'.
+
+
+[2]
 \openout2 = `chapters/introduction.aux'.
 
-
-(./chapters/introduction.tex
+ (./chapters/introduction.tex
 Cap\'{\i }tulo 1.
-<images//esgoto.jpg, id=15, 1417.295pt x 1062.97125pt>
+<images//esgoto.jpg, id=25, 1417.295pt x 1062.97125pt>
 File: images//esgoto.jpg Graphic file (type jpg)
 <use images//esgoto.jpg>
 Package pdftex.def Info: images//esgoto.jpg  used on input line 17.
 (pdftex.def)             Requested size: 241.49895pt x 181.12444pt.
-[2
+[3
 
 
  <./images//esgoto.jpg>]
-<images//dominio_sol.png, id=24, 877.02657pt x 274.02374pt>
+<images//dominio_sol.png, id=32, 877.02657pt x 274.02374pt>
 File: images//dominio_sol.png Graphic file (type png)
 <use images//dominio_sol.png>
 Package pdftex.def Info: images//dominio_sol.png  used on input line 68.
 (pdftex.def)             Requested size: 241.49895pt x 75.45502pt.
-<images//iesimo_vol.png, id=26, 468.24937pt x 279.29344pt>
+<images//iesimo_vol.png, id=34, 468.24937pt x 279.29344pt>
 File: images//iesimo_vol.png Graphic file (type png)
 <use images//iesimo_vol.png>
 Package pdftex.def Info: images//iesimo_vol.png  used on input line 73.
 (pdftex.def)             Requested size: 172.5pt x 102.88947pt.
- [3 <./images//dominio_sol.png> <./images//iesimo_vol.png>] [4]) [5]
+ [4 <./images//dominio_sol.png> <./images//iesimo_vol.png>] [5]) [6]
 \openout2 = `chapters/development.aux'.
 
  (./chapters/development.tex
 Cap\'{\i }tulo 2.
-[6
+[7
 
 
 
 
-] [7] [8]
+] [8] [9]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
-28.
+25.
  (c:/texlive/2020/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [9]) [10]
+) [10])
+[11]
 \openout2 = `chapters/results.aux'.
 
-
-(./chapters/results.tex
+ (./chapters/results.tex
 Cap\'{\i }tulo 3.
-) [11
+<images//Lx50.png, id=69, 578.16pt x 505.89pt>
+File: images//Lx50.png Graphic file (type png)
+<use images//Lx50.png>
+Package pdftex.def Info: images//Lx50.png  used on input line 21.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//Lx100.png, id=70, 578.16pt x 505.89pt>
+File: images//Lx100.png Graphic file (type png)
+<use images//Lx100.png>
+Package pdftex.def Info: images//Lx100.png  used on input line 26.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+[12
 
 
 
 
 ]
+<images//Lx200.png, id=76, 578.16pt x 505.89pt>
+File: images//Lx200.png Graphic file (type png)
+<use images//Lx200.png>
+Package pdftex.def Info: images//Lx200.png  used on input line 31.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//Lx400.png, id=77, 578.16pt x 505.89pt>
+File: images//Lx400.png Graphic file (type png)
+<use images//Lx400.png>
+Package pdftex.def Info: images//Lx400.png  used on input line 36.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [13 <./images//Lx50.png> <./images//Lx100.png>]
+<images//nx25.png, id=83, 578.16pt x 505.89pt>
+File: images//nx25.png Graphic file (type png)
+<use images//nx25.png>
+Package pdftex.def Info: images//nx25.png  used on input line 50.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [14 <./images//Lx200.png> <./images//Lx400.png>]
+<images//nx50.png, id=89, 578.16pt x 505.89pt>
+File: images//nx50.png Graphic file (type png)
+<use images//nx50.png>
+Package pdftex.def Info: images//nx50.png  used on input line 55.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//nx100.png, id=90, 578.16pt x 505.89pt>
+File: images//nx100.png Graphic file (type png)
+<use images//nx100.png>
+Package pdftex.def Info: images//nx100.png  used on input line 60.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [15 <./images//nx25.png> <./images//nx50.png>]
+<images//u2e-2.png, id=96, 578.16pt x 505.89pt>
+File: images//u2e-2.png Graphic file (type png)
+<use images//u2e-2.png>
+Package pdftex.def Info: images//u2e-2.png  used on input line 72.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//u2e-1.png, id=97, 578.16pt x 505.89pt>
+File: images//u2e-1.png Graphic file (type png)
+<use images//u2e-1.png>
+Package pdftex.def Info: images//u2e-1.png  used on input line 77.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//u2e0.png, id=98, 578.16pt x 505.89pt>
+File: images//u2e0.png Graphic file (type png)
+<use images//u2e0.png>
+Package pdftex.def Info: images//u2e0.png  used on input line 82.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [16 <./images//nx100.png> <./images//u2e-2.png>]
+<images//alpha2e-4.png, id=105, 578.16pt x 505.89pt>
+File: images//alpha2e-4.png Graphic file (type png)
+<use images//alpha2e-4.png>
+Package pdftex.def Info: images//alpha2e-4.png  used on input line 94.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//alpha2e-2.png, id=106, 578.16pt x 505.89pt>
+File: images//alpha2e-2.png Graphic file (type png)
+<use images//alpha2e-2.png>
+Package pdftex.def Info: images//alpha2e-2.png  used on input line 99.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [17 <./images//u2e-1.png> <./images//u2e0.png>]
+<images//alpha2e-1.png, id=112, 578.16pt x 505.89pt>
+File: images//alpha2e-1.png Graphic file (type png)
+<use images//alpha2e-1.png>
+Package pdftex.def Info: images//alpha2e-1.png  used on input line 104.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//alpha2e0.png, id=113, 578.16pt x 505.89pt>
+File: images//alpha2e0.png Graphic file (type png)
+<use images//alpha2e0.png>
+Package pdftex.def Info: images//alpha2e0.png  used on input line 109.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [18 <./images//alpha2e-4.png> <./images//alpha2e-2.png>]
+<images//u0&alpha2e-4.png, id=120, 578.16pt x 505.89pt>
+File: images//u0&alpha2e-4.png Graphic file (type png)
+<use images//u0&alpha2e-4.png>
+Package pdftex.def Info: images//u0&alpha2e-4.png  used on input line 123.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [19 <./images//alpha2e-1.png> <./images//alpha2e0.png>]
+<images//u0&alpha2e-2.png, id=126, 578.16pt x 505.89pt>
+File: images//u0&alpha2e-2.png Graphic file (type png)
+<use images//u0&alpha2e-2.png>
+Package pdftex.def Info: images//u0&alpha2e-2.png  used on input line 128.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//u0&alpha2e-1.png, id=127, 578.16pt x 505.89pt>
+File: images//u0&alpha2e-1.png Graphic file (type png)
+<use images//u0&alpha2e-1.png>
+Package pdftex.def Info: images//u0&alpha2e-1.png  used on input line 133.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//u0&alpha2e0.png, id=128, 578.16pt x 505.89pt>
+File: images//u0&alpha2e0.png Graphic file (type png)
+<use images//u0&alpha2e0.png>
+Package pdftex.def Info: images//u0&alpha2e0.png  used on input line 138.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [20 <./images//u0&alpha2e-4.png> <./images//u0&alpha2e-2.png>]
+<images//c_ini0.5.png, id=134, 578.16pt x 505.89pt>
+File: images//c_ini0.5.png Graphic file (type png)
+<use images//c_ini0.5.png>
+Package pdftex.def Info: images//c_ini0.5.png  used on input line 152.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [21 <./images//u0&alpha2e-1.png> <./images//u0&alpha2e0.png>]
+<images//c_ini1.png, id=140, 578.16pt x 505.89pt>
+File: images//c_ini1.png Graphic file (type png)
+<use images//c_ini1.png>
+Package pdftex.def Info: images//c_ini1.png  used on input line 157.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//c_ini2.png, id=141, 578.16pt x 505.89pt>
+File: images//c_ini2.png Graphic file (type png)
+<use images//c_ini2.png>
+Package pdftex.def Info: images//c_ini2.png  used on input line 162.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [22 <./images//c_ini0.5.png> <./images//c_ini1.png>]
+<images//c_inj0.75.png, id=147, 578.16pt x 505.89pt>
+File: images//c_inj0.75.png Graphic file (type png)
+<use images//c_inj0.75.png>
+Package pdftex.def Info: images//c_inj0.75.png  used on input line 176.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//c_inj1.5.png, id=148, 578.16pt x 505.89pt>
+File: images//c_inj1.5.png Graphic file (type png)
+<use images//c_inj1.5.png>
+Package pdftex.def Info: images//c_inj1.5.png  used on input line 181.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [23 <./images//c_ini2.png>]
+<images//c_inj3.png, id=153, 578.16pt x 505.89pt>
+File: images//c_inj3.png Graphic file (type png)
+<use images//c_inj3.png>
+Package pdftex.def Info: images//c_inj3.png  used on input line 186.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [24 <./images//c_inj0.75.png> <./images//c_inj1.5.png>]
+<images//t_final150.png, id=160, 578.16pt x 505.89pt>
+File: images//t_final150.png Graphic file (type png)
+<use images//t_final150.png>
+Package pdftex.def Info: images//t_final150.png  used on input line 199.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//t_final300.png, id=161, 578.16pt x 505.89pt>
+File: images//t_final300.png Graphic file (type png)
+<use images//t_final300.png>
+Package pdftex.def Info: images//t_final300.png  used on input line 204.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+<images//t_final600.png, id=162, 578.16pt x 505.89pt>
+File: images//t_final600.png Graphic file (type png)
+<use images//t_final600.png>
+Package pdftex.def Info: images//t_final600.png  used on input line 209.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [25 <./images//c_inj3.png> <./images//t_final150.png>]
+<images//t_final900.png, id=168, 578.16pt x 505.89pt>
+File: images//t_final900.png Graphic file (type png)
+<use images//t_final900.png>
+Package pdftex.def Info: images//t_final900.png  used on input line 214.
+(pdftex.def)             Requested size: 241.49895pt x 211.30673pt.
+ [26 <./images//t_final300.png> <./images//t_final600.png>]) [27 <./images//t_f
+inal900.png>]
 \openout2 = `chapters/conclusion.aux'.
 
- (./chapters/conclusion.tex
+
+(./chapters/conclusion.tex
 Cap\'{\i }tulo 4.
-) [12
+) [28
 
 
 
@@ -396,7 +565,7 @@ Cap\'{\i }tulo 4.
 
  (./chapters/code.tex
 Cap\'{\i }tulo 5.
-) [13
+) [29
 
 
 
@@ -404,39 +573,40 @@ Cap\'{\i }tulo 5.
 ] (./main.aux (./chapters/introduction.aux) (./chapters/development.aux)
 (./chapters/results.aux) (./chapters/conclusion.aux) (./chapters/code.aux)) ) 
 Here is how much of TeX's memory you used:
- 6525 strings out of 479916
- 96356 string characters out of 5886663
- 407416 words of memory out of 5000000
- 22987 multiletter control sequences out of 15000+600000
- 549995 words of font info for 60 fonts, out of 8000000 for 9000
+ 6784 strings out of 479916
+ 101037 string characters out of 5886663
+ 408990 words of memory out of 5000000
+ 23233 multiletter control sequences out of 15000+600000
+ 550776 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,7n,66p,369b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,8n,66p,369b,308s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c
-:/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{c:/texlive
-/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texlive/2020/texm
+:/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{c:/texlive/
+2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2020/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2020/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2020/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmmi12.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmmi5.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmmi7.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texliv
-e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2020/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2020/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2020/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy7.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-
-super/sfbx1000.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx
-1200.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><
-c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb><c:/texlive
-/2020/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c:/texlive/2020/texm
-f-dist/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2020/texmf-dist/fon
-ts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2020/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm2488.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-s
-uper/sfti1000.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt0
-800.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on main.pdf (14 pages, 1330381 bytes).
+><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texli
+ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2020/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2020/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy5.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy7.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx
+1000.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><
+c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive
+/2020/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb><c:/texlive/2020/texm
+f-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c:/texlive/2020/texmf-dist/fon
+ts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2020/texmf-dist/fonts/type1/p
+ublic/cm-super/sfrm1000.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-s
+uper/sfrm2488.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfti1
+000.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb><c
+:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on main.pdf (30 pages, 2101382 bytes).
 PDF statistics:
- 150 PDF objects out of 1000 (max. 8388607)
- 104 compressed objects within 2 object streams
+ 260 PDF objects out of 1000 (max. 8388607)
+ 141 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
