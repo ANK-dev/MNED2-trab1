@@ -24,11 +24,6 @@ for line_number, line in enumerate(f):
         x.append( int(line.split(',')[0]) )
         y.append( float( (line.split(',')[1]).split('\n')[0] ) )
 
-        # Resolvendo problema da célula
-        # x.append( float(line.split(',')[0]) )
-
-
-
 # Configura e exibe o gráfico
 fig,ax = plt.subplots()
 fig.set_size_inches(8, 7)   # Size of the window (1in = 100px)

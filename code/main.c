@@ -65,10 +65,9 @@ void calculateQ(double old[], double new[])
          *        o índice 0 refere-se ao volume nº 1 da malha
          */
         new[0] = old[0] - Delta_t/Delta_x * (
-                    u_bar * (2*old[0] - 2*c_inj) 
+                    u_bar * (2*old[0] - 2*c_inj)
                   - alpha * (old[1] - 3*old[0] + 2*c_inj) / Delta_x
                  );
-        /* new[0] = old[0] - ( ( (Delta_t)/(Delta_x) ) * ( (u_bar) * (2*old[0] - 2*(c_inj)) - (alpha) * (old[1] - 3*old[0] + 2*(c_inj)) / (Delta_x) ) ); */
 
         /*************************************************************
          *
@@ -78,10 +77,9 @@ void calculateQ(double old[], double new[])
          */
         for (x = 1; x < nx - 1; ++x) {
             new[x] = old[x] - Delta_t/Delta_x * (
-                        u_bar * (old[x] - old[x-1]) 
+                        u_bar * (old[x] - old[x-1])
                       - alpha * (old[x+1] - 2*old[x] + old[x-1]) / Delta_x
                      );
-            /* new[x] = old[x] - ( ( (Delta_t)/(Delta_x) ) * ( (u_bar) * (old[x] - old[x-1]) - (alpha) * (old[x+1] - 2*old[x] + old[x-1]) / (Delta_x) ) ); */
         }
 
         /*************************************************************
@@ -95,7 +93,6 @@ void calculateQ(double old[], double new[])
                     u_bar * (old[x] - old[x-1])
                   - alpha * (old[x-1] - old[x]) / Delta_x
                  );
-        /* new[x] = old[x] - ( ( (Delta_t)/(Delta_x) ) * ( (u_bar) * (old[x] - old[x-1]) - (alpha) * (old[x-1] - old[x]) / (Delta_x) ) ); */
 
         /* incrementa o progresso a cada 5% */
         if (progress_count == progress_incr){
@@ -133,7 +130,7 @@ void printAndSaveResults(double arr[], int len)
 
     /* Error Handling -- Verifica se é possível criar/escrever o arquivo de
                          resultados */
-    if (   (results_file = fopen("./results/results.txt", "w")   ) == NULL 
+    if (   (results_file = fopen("./results/results.txt", "w")   ) == NULL
         && (results_file = fopen("./../results/results.txt", "w")) == NULL) {
         fputs("[ERR] Houve um erro ao escrever o arquivo \"results.txt\"! "
               "Os resultados nao foram salvos.\n", stderr);
@@ -156,11 +153,6 @@ void printAndSaveResults(double arr[], int len)
     for (i = 0; i < len; ++i) {
         fprintf(results_file, "%d,%f\n", i + 1, arr[i]);
     }
-
-    /* Testando problema de células -- imprime posição x da célula */
-    /* for (i = 0; i < len; ++i) {
-        fprintf(results_file, "%f,%f\n", Delta_x * i, arr[i]);
-    } */
 
     fclose(results_file);   /* fecha o arquivo */
 

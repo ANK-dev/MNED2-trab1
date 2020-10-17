@@ -1,2 +1,250 @@
 \chapter{Código Computacional}
-O código computacional entra aqui.
+
+\subsection{Código Principal}
+
+\subsubsection{Arquivo \texttt{main.h}}
+
+\begin{Verbatim}[fontsize=\footnotesize]
+/******************************************************************************
+ *        Métodos Numéricos para Equações Diferenciais II -- Trabalho 1       *
+ *                          Ariel Nogueira Kovaljski                          *
+ ******************************************************************************/
+
+/*====================== Parâmetros a serem ajustados ========================*/
+
+#define Lx      100.0       /* Lx: comprimento do domínio (em m) */
+#define nx      50          /* nx: número de células */
+#define Delta_x (Lx/nx)     /* Delta_x: largura de cada célula (em m) */
+#define u_bar   0.2         /* u_bar: velocidade de escoamento (em m/s) */
+#define alpha   2.0e-4      /* alpha: coeficiente de difusão */
+#define c_ini   1.0         /* concentração inicial nos volumes da malha */
+#define c_inj   1.5         /* concentração de injeção nos vol. da malha */
+#define t_final 300.0       /* tempo final da simulação (em segundos) */
+                            /* Delta_t: passo de tempo (em segundos) */
+#define Delta_t (0.1 * (1/( (2*alpha)/(Delta_x*Delta_x) + u_bar/Delta_x ) ))
+
+/*============================================================================*/
+
+void listParameters();
+void initializeArray(double arr[], int len, double value);
+void calculateQ(double old_arr[], double new_arr[]);
+void printAndSaveResults(double arr[], int len);
+\end{Verbatim}
+
+\subsubsection{Arquivo \texttt{main.c}}
+\begin{Verbatim}[fontsize=\footnotesize]
+/******************************************************************************
+ *        Métodos Numéricos para Equações Diferenciais II -- Trabalho 1       *
+ *                          Ariel Nogueira Kovaljski                          *
+ ******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "main.h"
+
+int main(void)
+{
+
+    double Q_new[nx];   /* array de Q no tempo n+1 */
+    double Q_old[nx];   /* array de Q no tempo n */
+
+    puts("\nMNED II - Trabalho 1\n====================");
+    puts("por Ariel Nogueira Kovaljski\n");
+
+    listParameters();
+
+    /* inicializa os arrays Q para uma concentração c_ini inicial */
+    initializeArray(Q_old, nx, c_ini);
+    initializeArray(Q_new, nx, c_ini);
+
+    calculateQ(Q_old, Q_new);
+    printAndSaveResults(Q_new, nx);
+
+    return 0;
+}
+
+void listParameters()
+{
+    puts("Parametros\n----------");
+    puts("Constantes da equacao:");
+    printf("Delta_t = %f, Delta_x = %f, u_bar = %3.2e, alpha = %3.2e, "
+           "c_inj = %3.2e\n\n", Delta_t, Delta_t, u_bar, alpha, c_inj);
+    puts("Constantes da simulacao:");
+    printf("nx = %d, t_final = %f, c_ini = %3.2e\n\n", nx, t_final, c_ini);
+}
+
+/* Inicializa um array para um valor de entrada */
+void initializeArray(double arr[], int len, double value)
+{
+    int i;
+    for (i = 0; i < len; ++i) {
+        arr[i] = value;
+    }
+}
+
+/* Calcula as concentrações na malha ao longo do tempo */
+void calculateQ(double old[], double new[])
+{
+    int x;
+    int progress = 0, progress_count = 0;
+    int progress_incr = (t_final/Delta_t) * 5 / 100;
+    double t = 0;
+
+    do {
+
+        /*************************************************************
+        *
+        *            |==@==|==@==|==@==|==@==|==@==|==@==|
+        *               ^
+        *            Para o volume da fronteira esquerda
+        *        o índice 0 refere-se ao volume nº 1 da malha
+        */
+        new[0] = old[0] - Delta_t/Delta_x * (
+                    u_bar * (2*old[0] - 2*c_inj)
+                  - alpha * (old[1] - 3*old[0] + 2*c_inj) / Delta_x
+                 );
+
+        /*************************************************************
+        *
+        *            |==@==|==@==|==@==|==@==|==@==|==@==|
+        *                     ^     ^     ^     ^
+        *             Para os volumes do centro da malha
+        */
+        for (x = 1; x < nx - 1; ++x) {
+            new[x] = old[x] - Delta_t/Delta_x * (
+                        u_bar * (old[x] - old[x-1])
+                      - alpha * (old[x+1] - 2*old[x] + old[x-1]) / Delta_x
+                     );
+        }
+
+        /*************************************************************
+        *
+        *            |==@==|==@==|==@==|==@==|==@==|==@==|
+        *                                             ^
+        *             Para o volume da fronteira direita
+        *            x possui valor de nx - 1 nesse ponto
+        */
+        new[x] = old[x] - Delta_t/Delta_x * (
+                    u_bar * (old[x] - old[x-1])
+                  - alpha * (old[x-1] - old[x]) / Delta_x
+                 );
+
+        /* incrementa o progresso a cada 5% */
+        if (progress_count == progress_incr){
+            progress_count = 0;
+            ++progress;
+            printf("\rCalculando... %d%% concluido", progress * 5);
+            fflush(stdout);
+        }
+
+        /* Atualiza array de valores antigos com os novos para a próxima
+        iteração */
+        for (x = 0; x < nx; ++x) {
+            old[x] = new[x];
+        }
+
+        /* incrementa contador para cada 5% */
+        ++progress_count;
+
+    } while ( (t += Delta_t) <= t_final);
+
+}
+
+/* Imprime na tela e salva os resultados num arquivo de saída */
+void printAndSaveResults(double arr[], int len)
+{
+    int i;
+    FILE *results_file;     /* Ponteiro para o arquivo de resultados */
+
+    /* Imprime os resultados no console */
+    printf("\n\nQ[%d] (tempo final: %.2fs) = [", nx, t_final);
+    for (i = 0; i < len - 1; ++i) {
+        printf("%f, ", arr[i]);
+    }
+    printf("%f]\n\n", arr[i]);
+
+    /* Error Handling -- Verifica se é possível criar/escrever o arquivo de
+    resultados */
+    if (   (results_file = fopen("./results/results.txt", "w")   ) == NULL
+        && (results_file = fopen("./../results/results.txt", "w")) == NULL) {
+        fputs("[ERR] Houve um erro ao escrever o arquivo \"results.txt\"! "
+              "Os resultados nao foram salvos.\n", stderr);
+        exit(1);
+    }
+
+    /* Adiciona os resultados no arquivo "results.txt" */
+    fprintf(results_file,
+            "nx=%d\n"
+            "Delta_t=%f\n"
+            "Delta_x=%f\n"
+            "t_final=%f\n"
+            "u_bar=%f\n"
+            "alpha=%f\n"
+            "c_ini=%f\n"
+            "c_inj=%f\n",
+            nx, Delta_t, Delta_x, t_final, u_bar, alpha, c_ini, c_inj);
+    fputs("********************\n", results_file);
+
+    for (i = 0; i < len; ++i) {
+        fprintf(results_file, "%d,%f\n", i + 1, arr[i]);
+    }
+
+    fclose(results_file);   /* fecha o arquivo */
+
+    puts("[INFO] Os resultados foram salvos no arquivo \"results.txt\" "
+    "no diretorio \"results/\".");
+}
+\end{Verbatim}
+
+\subsection{Código do Gráfico (\texttt{plot\_graph.py})}
+
+\begin{Verbatim}[fontsize=\footnotesize]
+###############################################################################
+#         Métodos Numéricos para Equações Diferenciais II -- Trabalho 1       #
+#                           Ariel Nogueira Kovaljski                          #
+###############################################################################
+
+import matplotlib.pyplot as plt
+
+x = []
+y = []
+parameters = {}
+
+# Abre arquivo para leitura
+f = open('./results/results.txt', 'r')
+
+for line_number, line in enumerate(f):
+    if line_number < 8:
+        # Adiciona parâmetros da simulação em um dicionário
+        parameters[line.split('=')[0]] = (line.split('=')[1]).split('\n')[0]
+    elif line_number == 8:
+        # Pula linha separadora
+        pass
+    else:
+        # Separa valores na lista `x` e na lista `y`
+        x.append( int(line.split(',')[0]) )
+        y.append( float( (line.split(',')[1]).split('\n')[0] ) )
+
+# Configura e exibe o gráfico
+fig,ax = plt.subplots()
+fig.set_size_inches(8, 7)   # Size of the window (1in = 100px)
+ax.grid(True)
+
+plt.suptitle("Concentração X Célula")
+plt.title(rf"$nx = {parameters['nx']}$, "
+          rf"$\Delta t = {parameters['Delta_t']}$, "
+          rf"$\Delta x = {parameters['Delta_x']}$, "
+          rf"$t_{{final}} = {parameters['t_final']}$, "
+          rf"$\bar{{u}} = {parameters['u_bar']}$, "
+          rf"$\alpha = {parameters['alpha']}$, "
+          rf"$c_{{ini}} = {parameters['c_ini']}$, "
+          rf"$c_{{inj}} = {parameters['c_inj']}$", fontsize=8)
+# Rótulo X -- descomentar depois
+# plt.xlabel("célula (i)")
+
+# Rótulo X -- resolvendo problema da célula
+plt.xlabel("índice célula (i)")
+plt.ylabel("concentração (Q)")
+plt.plot(x,y,'ko-', markerfacecolor='cyan', markeredgecolor='k')
+plt.show()
+\end{Verbatim}
