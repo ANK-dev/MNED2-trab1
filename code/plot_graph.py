@@ -38,8 +38,6 @@ plt.title(rf"$nx = {parameters['nx']}$, "
           rf"$\alpha = {parameters['alpha']}$, "
           rf"$c_{{ini}} = {parameters['c_ini']}$, "
           rf"$c_{{inj}} = {parameters['c_inj']}$", fontsize=8)
-# Rótulo X -- descomentar depois
-# plt.xlabel("célula (i)")
 
 # Rótulo X -- resolvendo problema da célula
 plt.xlabel("índice célula (i)")
